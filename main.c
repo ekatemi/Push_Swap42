@@ -24,14 +24,14 @@ int main(int  argc, char  *argv[])
         return (1);
     while (argc > i) 
     {
-        char str[] = argv[i];  // Replace this with your actual char array
+        char *str = argv[i];  // Replace this with your actual char array
         char *endptr;  // Pointer to the first character not converted
         long num = strtol(str, &endptr, 10);  // C
         if (*endptr != '\0') {
             printf("Error: Invalid number format: %s\n", str);
             return 1;  // Exit with an error code
         }
-        printf("%s\n", argv[i]);
+        printf("%ld\n", num);
         i++;
     }
     return (0);
