@@ -45,9 +45,7 @@ int ft_atoi(char *str)
    }
    res = res * sign;
    if (res < -2147483648 || res > 2147483647) 
-   {
     return (0);
-   }
    return ((int)res);
 }
 
