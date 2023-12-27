@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emikhayl <emikhayl@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 19:57:15 by emikhayl          #+#    #+#             */
-/*   Updated: 2023/12/15 19:57:24 by emikhayl         ###   ########.fr       */
+/*   Created: 2023/12/27 16:29:37 by emikhayl          #+#    #+#             */
+/*   Updated: 2023/12/27 16:29:44 by emikhayl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "push_swap.h"
 
 //check if string contains only numbers and optionally - at start
 int ft_isnum(char *str)
@@ -78,41 +77,3 @@ int ft_checkdup(char  **argv, int current)
     }
     return(0);
 }
-
-typedef struct Node {
-    int data;
-    int index;
-    struct Node *next;
-} node_t;
-
-
-
-
-
-
-
-
-int main(int  argc, char  **argv)
-{
-    int i;
-
-    i = 1;
-    if (argc < 2)
-        return (1);
-    while (i < argc) 
-    {
-        if ((!ft_atoi(argv[i]) && ft_strcmp(argv[i],"0")) || ft_checkdup(argv, i))
-        {
-            write(2,"Error\n", 6);
-            return (1);
-        }
-        i++;
-    }
-    i = 1;
-    while(i < argc)
-    {
-        printf("%s\n", argv[i++]);
-    }
-    return (0);
-}
-
