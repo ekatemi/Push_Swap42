@@ -10,93 +10,93 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include "push_swap.h"
 
-//check if string contains only numbers and optionally - at start
-int ft_isnum(char *str)
+void init_stack_a(t_stack_node **a, char **argv)
 {
-    if (*str == '-')
-        str++;
-    while(*str)
-    {
-        if (*str < '0' || *str > '9')
-            return(0);
-        str++;
-    }
-    return (1);
-}
-//convert str to int, if it is not int return 0;
-int ft_atoi(char *str)
-{
-   if (!ft_isnum(str)) 
-    return (0);
-   int sign = 1;
-   long res = 0;
-   while(*str)
-   {
-        if (*str == '-')
-        {
-            sign = -1;
-            str++;
-        }
-        res = res * 10 + (*str - '0');
-        str++;
-   }
-   res = res * sign;
-   if (res < -2147483648 || res > 2147483647) 
-    return (0);
-   return ((int)res);
-}
-
-// function to check if 2 strings are equal
-int ft_strcmp(char *str1, char *str2)
-{
-    while (*str1 || *str2)
-    {
-        if (*str1 != *str2)
-            return(1);
-        str1++;
-        str2++;
-    }
-    return(0);
-}
-
-//function to check if input args are not duplicated (1 dup, 0 not)
-int ft_checkdup(char  **argv, int current)
-{
+    int n;
     int i;
 
     i = 1;
-    while (i < current)
+    while(argv[i])
     {
-        if (ft_strcmp(argv[i], argv[current]) == 0)
-                return(1);
-        i++;    
+        n = ft_atoi(argv[i]);
+        append_node(a, n);
+        i++;
     }
-    return(0);
 }
 
-typedef struct Node {
-    int data;
-    int index;
-    struct Node *next;
-} node_t;
+void append_node(t_stack_node **stack, int n)
+{
+    t_stack_node *node;
+    t_stack_node *last_node;
+    if (!stack)
+        return ;
+    node = malloc(sizeof(t_stack_node));
+    if (!node)
+        return ;
+    node->num = n;
+    node->next = NULL;
+    
+    if (!(*stack))
+    {
+        *stack = node;
+        node->prev = NULL;
+    }
+    else 
+    {
+        last_node = find_last(*stack);
+        last_node->next = node;
+        node->prev = last_node;
+    }
+}
 
+t_stack_node* find_last(t_stack_node* stack) 
+{
+    if (!stack) {
+        return NULL;  // Return NULL if the stack is empty
+    }
 
+    // Traverse the list until the last node is reached
+    while (stack->next != NULL) {
+        stack = stack->next;
+    }
 
+    return stack;  // Return a pointer to the last node
+}
 
-
-
+void print_stack(t_stack_node *stack)
+{
+    while (stack != NULL) {
+        printf("%d", stack->num);
+        stack = stack->next;
+    }
+    printf("\n");
+}
+/*
+int stack_sorted(t_stack_node *stack)
+{
+    if(!stack)
+        return (-1);
+    while (stack->next)
+    {
+        if(stack->num > stack->next->num)
+            return(0);
+        stack = stack->next;
+    }
+    return(1);//true
+}
+*/
 
 
 int main(int  argc, char  **argv)
 {
+    
+    t_stack_node *a;
     int i;
 
     i = 1;
+    a = NULL;
     if (argc < 2)
         return (1);
     while (i < argc) 
@@ -108,11 +108,11 @@ int main(int  argc, char  **argv)
         }
         i++;
     }
-    i = 1;
-    while(i < argc)
-    {
-        printf("%s\n", argv[i++]);
-    }
+   
+    init_stack_a(&a, argv);
+
+    printf("asdfg\n");
+    print_stack(a);
     return (0);
 }
 

@@ -13,12 +13,14 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-
+//FUNCTIONS TO CHECK IF INPUT IS VALID
 //check if string contains only numbers and optionally - at start
 int ft_isnum(char *str)
 {
     if (*str == '-')
         str++;
+    if (*str == '\0')
+        return(0);
     while(*str)
     {
         if (*str < '0' || *str > '9')

@@ -30,4 +30,17 @@ typedef struct s_stack_node
     struct s_stack_node *target_node;
 } t_stack_node;
 
+//functions to check input
+
+int ft_isnum(char *str);
+int ft_atoi(char *str);
+int ft_strcmp(char *str1, char *str2);
+int ft_checkdup(char  **argv, int current);
+
+//functions to init the stack
+void init_stack_a(t_stack_node **a, char **argv);
+void append_node(t_stack_node **stack, int n);
+t_stack_node* find_last(t_stack_node* stack);
+void print_stack(t_stack_node *stack);
+
 #endif
