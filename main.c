@@ -34,7 +34,7 @@ void append_node(t_stack_node **stack, int n)
         return ;
     node = malloc(sizeof(t_stack_node));
     if (!node)
-        return ;
+        exit(1) ;
     node->num = n;
     node->next = NULL;
     
