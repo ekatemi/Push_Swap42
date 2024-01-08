@@ -42,5 +42,6 @@ void init_stack_a(t_stack_node **a, char **argv);
 void append_node(t_stack_node **stack, int n);
 t_stack_node* find_last(t_stack_node* stack);
 void print_stack(t_stack_node *stack);
+void ft_swap(t_stack_node **head);
 
 #endif
