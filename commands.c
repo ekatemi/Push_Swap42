@@ -11,27 +11,15 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-/*
-static int count_nodes(t_stack_node *stack)
-{
-    int i;
 
-    i = 0;
-    while (stack != NULL)
-        {
-            stack = stack->next;
-            i++;
-        }
-    return(i);
-}*/
 
 void ft_swap(t_stack_node **head)
 {
-    if (*head == NULL || (*head)->next == NULL) //chech if there at least 2 nodes
+    if (*head == NULL || (*head)->next == NULL) //check if there at least 2 nodes
         return ;
     t_stack_node *first_node = *head;
     t_stack_node *second_node = first_node->next;
-
+    
     // Adjusting links for the swap
     first_node->next = second_node->next;
     second_node->prev = first_node->prev;
@@ -39,11 +27,51 @@ void ft_swap(t_stack_node **head)
     first_node->prev = second_node;
 
     // Update the previous of the node after the swapped nodes
-    if (first_node->next != NULL) {
+    if (first_node->next != NULL)
         first_node->next->prev = first_node;
-    }
-
     // Update the head to point to the new first node
     *head = second_node;
-
 }
+
+void sa(t_stack_node **stack)
+{
+    ft_swap(&stack);
+    ft_putstr("sa\n");
+}
+
+t_stack_node *find_biggest(t_stack_node *stack)
+{
+    if (stack == NULL)
+        return NULL;
+    
+    t_stack_node *biggest = stack;
+    t_stack_node *current = stack;
+    
+    
+    while (current != NULL)
+    {
+        if (current->num > biggest->num)
+        {
+            biggest = current;
+        }
+        current = current->next;
+    }
+    return(biggest);
+}
+
+//before use it check if the stack has 3 nodes
+void sort_three(t_stack_node **stack)
+{
+    t_stack_node *biggest = find_biggest(*stack);
+    
+    if (count_nodes(*stack) != 3)
+        return; 
+    if (biggest == *stack)
+        ra(stack);
+    else if (biggest == (*stack)->next)
+        rra(stack);
+    
+    if (!stack_sorted(stack))
+        sa(stack);
+}
+//here I need ra rra and rotate.

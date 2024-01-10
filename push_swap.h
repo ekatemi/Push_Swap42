@@ -37,11 +37,24 @@ int ft_atoi(char *str);
 int ft_strcmp(char *str1, char *str2);
 int ft_checkdup(char  **argv, int current);
 
+//etc
+void ft_putstr(char *str);
+
 //functions to init the stack
 void init_stack_a(t_stack_node **a, char **argv);
 void append_node(t_stack_node **stack, int n);
-t_stack_node* find_last(t_stack_node* stack);
+t_stack_node *find_last(t_stack_node* stack);
 void print_stack(t_stack_node *stack);
 void ft_swap(t_stack_node **head);
+int count_nodes(t_stack_node *stack);
+void lst_dealloc(t_stack_node **head);
+t_stack_node *new_node(int *n);
+t_stack_node *find_last(t_stack_node *stack);
+int stack_sorted(t_stack_node *stack);
+
+//functions commands
+void ft_swap(t_stack_node **head);
+t_stack_node *find_biggest(t_stack_node *stack);
+
 
 #endif

@@ -19,21 +19,25 @@ int count_nodes(t_stack_node *stack)
     i = 0;
     while (stack != NULL)
         {
-            stack = stack->next;
             i++;
+            stack = stack->next;
         }
     return(i);
 }
 
-void lst_dealloc(t_stack_node **lst)
+void lst_dealloc(t_stack_node **head)
 {
-    while (*lst != NULL)
+    if (*head == NULL)
+        return ;
+    t_stack_node *current = *head;
+    while (current->next != NULL)
     {
-        t_stack_node *temp = *lst;
-        *lst = (*lst)->next;
-        free(temp);
+        //t_stack_node *temp = *lst;
+        current = current->next;
+        free(current->prev);
     }
-    *lst = NULL;
+    free(current);
+    *head = NULL;
 }
 
 void init_stack_a(t_stack_node **stack, char **argv)
@@ -49,22 +53,34 @@ void init_stack_a(t_stack_node **stack, char **argv)
     }
 }
 
-void append_node(t_stack_node **stack, int n)
+t_stack_node *new_node(int *n)
 {
     t_stack_node *node;
-    t_stack_node *last_node;
-    if (!stack)
-        return ;
     node = malloc(sizeof(t_stack_node));
-    if (!node)
-        exit(1) ;
-    node->num = n;
+    if (node == NULL)
+        return NULL;
+    node->num = *n;
+    node->index = 0;
+    node->push_cost = 0;
+    node->above_median = 0;
+    node->cheapest = 0;
+    node->target_node = NULL;
+    node->prev = NULL; //not shure
     node->next = NULL;
-    
+    return (node);
+}
+
+void append_node(t_stack_node **stack, int n)
+{
+    t_stack_node *node = new_node(&n);
+    t_stack_node *last_node;
+    if (stack == NULL)
+        exit (1);
+
     if (!(*stack))
     {
         *stack = node;
-        node->prev = NULL;
+        //node->prev = NULL;
     }
     else 
     {
@@ -92,7 +108,15 @@ void print_stack(t_stack_node *stack)
     }
     printf("\n");
 }
-
+void print_stack_rev(t_stack_node *stack)
+{
+    while (stack != NULL) {
+        printf("%d\n", stack->num);
+        stack = stack->prev;
+    }
+    printf("\n");
+}
+//****************************************
 int stack_sorted(t_stack_node *stack)
 {
     if(!stack)
@@ -111,6 +135,8 @@ int main(int  argc, char  **argv)
 {
     
     t_stack_node *a;
+    //t_stack_node *b;
+
     int i;
 
     i = 1;
@@ -132,16 +158,21 @@ int main(int  argc, char  **argv)
 
 
     printf("before swap\n");
+    //t_stack_node *tail = find_last(a);
     print_stack(a);
-    ft_swap(&a);
+    //print_stack_rev(tail);
+    t_stack_node *biggest = find_biggest(a);
+    printf("\nbiggest %d\n", biggest->num);
+    /*ft_swap(&a);
     printf("after swap\n");
     print_stack(a);
-    /*
+    
     if (stack_sorted(a))
         printf("Sorted");
     else 
         printf("not sorted");*/
     //lst_dealloc(&a);
+    //printf("deallocation check");
     //print_stack(a);
     
     return (0);
