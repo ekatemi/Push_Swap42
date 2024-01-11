@@ -74,4 +74,20 @@ void sort_three(t_stack_node **stack)
     if (!stack_sorted(stack))
         sa(stack);
 }
+
+void ra(t_stack_node **stack)
+{
+    if (*stack == NULL || (*stack)->next == NULL)
+        return; // Nothing to rotate
+    t_stack_node *tail = find_last(*stack);
+    t_stack_node *head = *stack;
+    t_stack_node *second = head->next;
+
+    tail->next = head;
+    head->next = NULL;
+    head->prev = tail;
+    second->prev = NULL;
+    *stack = second;
+}
+
 //here I need ra rra and rotate.

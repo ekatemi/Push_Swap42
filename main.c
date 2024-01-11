@@ -74,9 +74,13 @@ void append_node(t_stack_node **stack, int n)
 {
     t_stack_node *node = new_node(&n);
     t_stack_node *last_node;
-    if (stack == NULL)
-        exit (1);
-
+    
+    if (!node)
+    {
+        lst_dealloc(*stack);
+        exit(1);
+    }
+    
     if (!(*stack))
     {
         *stack = node;
