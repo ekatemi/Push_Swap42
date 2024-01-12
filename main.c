@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+int count_nodes(t_stack_node *stack);
 //helper to visualize stack only for me
-void print_stack(t_stack_node *stack)
+static void print_stack(t_stack_node *stack)
 {
     while (stack != NULL) {
         printf("%d\n", stack->num);
@@ -21,7 +21,7 @@ void print_stack(t_stack_node *stack)
     }
     printf("\n");
 }
-void print_stack_rev(t_stack_node *stack)
+static void print_stack_rev(t_stack_node *stack)
 {
     while (stack != NULL) {
         printf("%d\n", stack->num);
@@ -53,27 +53,29 @@ int main(int  argc, char  **argv)
         }
         i++;
     }
-   
     init_stack_a(&a, argv);
-
-
-    printf("before swap\n");
-    //t_stack_node *tail = find_last(a);
-    print_stack(a);
-    //print_stack_rev(tail);
-    t_stack_node *biggest = find_biggest(a);
-    printf("\nbiggest %d\n", biggest->num);
-    /*ft_swap(&a);
-    printf("after swap\n");
-    print_stack(a);
     
-    if (stack_sorted(a))
-        printf("Sorted");
-    else 
-        printf("not sorted");*/
-    //lst_dealloc(&a);
-    //printf("deallocation check");
+    while (!stack_sorted(a))
+    {
+        if (count_nodes(a) == 2)
+            sa(&a, 1);
+        else if (count_nodes(a) == 3)
+            sort_three(&a);
+    }
+    printf("sorted\n");
+
+
+    //printf("before swap\n");
+    print_stack(a);
+
+    //printf("after swap\n");
     //print_stack(a);
+    t_stack_node *tail = find_last(a);
+    print_stack_rev(tail);
+    lst_dealloc(&a);
+    printf("deallocation check-->\n");
+    //print_stack(a);
+    //print_stack_rev(a);
     
     return (0);
 }

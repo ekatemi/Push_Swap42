@@ -15,28 +15,34 @@
 
 void ft_swap(t_stack_node **head)
 {
-    if (*head == NULL || (*head)->next == NULL) //check if there at least 2 nodes
-        return ;
+    if (*head == NULL || (*head)->next == NULL) {
+        // Not enough elements to swap
+        return;
+    }
+
     t_stack_node *first_node = *head;
     t_stack_node *second_node = first_node->next;
-    
+
     // Adjusting links for the swap
     first_node->next = second_node->next;
-    second_node->prev = first_node->prev;
-    second_node->next = first_node;
     first_node->prev = second_node;
+    second_node->next = first_node;
+    second_node->prev = NULL;
 
     // Update the previous of the node after the swapped nodes
-    if (first_node->next != NULL)
+    if (first_node->next != NULL) {
         first_node->next->prev = first_node;
+    }
+
     // Update the head to point to the new first node
     *head = second_node;
 }
 
-void sa(t_stack_node **stack)
+void sa(t_stack_node **stack, int print)
 {
-    ft_swap(&stack);
-    ft_putstr("sa\n");
+    ft_swap(stack);
+    if (1 == print)
+        ft_putstr("sa\n");
 }
 
 t_stack_node *find_biggest(t_stack_node *stack)
@@ -65,12 +71,11 @@ void sort_three(t_stack_node **stack)
     t_stack_node *biggest = find_biggest(*stack);
     
     if (biggest == *stack)
-        ra(stack, 0);
+        ra(stack, 1);
     else if (biggest == (*stack)->next)
-        rra(tail, 0);
-    
-    if (!stack_sorted(stack))
-        sa(stack);
+        rra(stack, 1);
+    else if (biggest == (*stack)->next->next)
+        sa(stack, 1);
 }
 
 void ra(t_stack_node **stack, int print)
@@ -86,7 +91,7 @@ void ra(t_stack_node **stack, int print)
     head->prev = tail;
     second->prev = NULL;
     *stack = second;
-    if (print = 1)
+    if (1 == print)
         write(1, "ra\n", 3);
 }
 
@@ -95,11 +100,20 @@ void rra(t_stack_node **stack, int print)
     t_stack_node *tail = find_last(*stack);
     t_stack_node *head = *stack;
 
+    tail->prev->next = NULL;
     head->prev = tail;
     tail->next = head;
-    head->prev->prev = NULL;
-    tail->prev->next = NULL;
-    *stack = head->prev;
+    tail->prev = NULL;
+    *stack = tail;
+
+    if (1 == print)
+        write(1, "rra\n", 4);
 }
 
-//here I need ra rra and rotate.
+//void swap(t_stack_node **a, t_stack_node **b);
+/*function to upate stack
+    find above/below median
+    for ss
+    for rrr, rr
+    find target node
+*/

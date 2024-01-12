@@ -52,7 +52,7 @@ t_stack_node *new_node(int *n)
     node->above_median = 0;
     node->cheapest = 0;
     node->target_node = NULL;
-    node->prev = NULL; //not shure
+    //node->prev = NULL; //not shure
     node->next = NULL;
     return (node);
 }
@@ -64,14 +64,14 @@ void append_node(t_stack_node **stack,  int n)
     
     if (!node)
     {
-        lst_dealloc(*stack);
+        lst_dealloc(stack);
         exit(1);
     }
     
     if (!(*stack))
     {
         *stack = node;
-        //node->prev = NULL;
+        node->prev = NULL;
     }
     else 
     {
@@ -91,23 +91,7 @@ t_stack_node *find_last(t_stack_node *stack)
         stack = stack->next;
     return stack;
 }
-//helper to visualize stack only for me
-void print_stack(t_stack_node *stack)
-{
-    while (stack != NULL) {
-        printf("%d\n", stack->num);
-        stack = stack->next;
-    }
-    printf("\n");
-}
-void print_stack_rev(t_stack_node *stack)
-{
-    while (stack != NULL) {
-        printf("%d\n", stack->num);
-        stack = stack->prev;
-    }
-    printf("\n");
-}
+
 //****************************************
 int stack_sorted(t_stack_node *stack)
 {
