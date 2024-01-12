@@ -64,18 +64,16 @@ void sort_three(t_stack_node **stack)
 {
     t_stack_node *biggest = find_biggest(*stack);
     
-    if (count_nodes(*stack) != 3)
-        return; 
     if (biggest == *stack)
-        ra(stack);
+        ra(stack, 0);
     else if (biggest == (*stack)->next)
-        rra(stack);
+        rra(tail, 0);
     
     if (!stack_sorted(stack))
         sa(stack);
 }
 
-void ra(t_stack_node **stack)
+void ra(t_stack_node **stack, int print)
 {
     if (*stack == NULL || (*stack)->next == NULL)
         return; // Nothing to rotate
@@ -88,6 +86,20 @@ void ra(t_stack_node **stack)
     head->prev = tail;
     second->prev = NULL;
     *stack = second;
+    if (print = 1)
+        write(1, "ra\n", 3);
+}
+
+void rra(t_stack_node **stack, int print)
+{
+    t_stack_node *tail = find_last(*stack);
+    t_stack_node *head = *stack;
+
+    head->prev = tail;
+    tail->next = head;
+    head->prev->prev = NULL;
+    tail->prev->next = NULL;
+    *stack = head->prev;
 }
 
 //here I need ra rra and rotate.

@@ -31,7 +31,6 @@ typedef struct s_stack_node
 } t_stack_node;
 
 //functions to check input
-
 int ft_isnum(char *str);
 int ft_atoi(char *str);
 int ft_strcmp(char *str1, char *str2);
