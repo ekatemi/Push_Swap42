@@ -40,11 +40,18 @@ int main(int  argc, char  **argv)
     t_stack_node *head_a;
     t_stack_node *tail_a;
 
+    t_stack_node *head_b;
+    t_stack_node *tail_b;
+
     int i;
 
     i = 1;
     head_a = NULL;
     tail_a = NULL;
+
+    head_b = NULL;
+    tail_b = NULL;
+    
     if (argc == 1 || (argc == 2 && !argv[1][0]))
         return (1);
     //to check if the arguments are int
@@ -60,6 +67,10 @@ int main(int  argc, char  **argv)
     init_stack_a(&head_a, &tail_a, argv);
     printf("Stack input------>\n");
     print_stack(head_a);
+    
+    push_ab(&head_b, &head_a);
+    print_stack(head_a);
+    print_stack(head_b);
     printf("Commands------>\n");
     while (!stack_sorted(head_a))
     {
@@ -72,6 +83,7 @@ int main(int  argc, char  **argv)
     print_stack(head_a);
     printf("Reversed------>\n");
     print_stack_rev(tail_a);
+    
     lst_dealloc(&head_a, &tail_a);
     printf("deallocation check------>\n");
     print_stack(head_a);

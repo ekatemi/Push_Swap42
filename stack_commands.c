@@ -28,6 +28,18 @@ void lst_dealloc(t_stack_node **head, t_stack_node **tail)
     *tail = NULL;
 }
 
+void init_new_node(t_stack_node *new_node, int n)
+{
+    new_node->num = n;
+    new_node->index = 0;
+    new_node->push_cost = 0;
+    new_node->above_median = 0;
+    new_node->cheapest = 0;
+    new_node->target_node = NULL;
+    new_node->prev = NULL;
+    new_node->next = NULL;
+}
+
 void append_node(t_stack_node **head, t_stack_node **tail,  int n)
 {
     t_stack_node *new_node;
@@ -37,15 +49,8 @@ void append_node(t_stack_node **head, t_stack_node **tail,  int n)
         lst_dealloc(head, tail);
         exit(1);
     }
-    //init_new_node(new_node, n);
-    new_node->num = n;
-    new_node->index = 0;
-    new_node->push_cost = 0;
-    new_node->above_median = 0;
-    new_node->cheapest = 0;
-    new_node->target_node = NULL;
-    new_node->prev = NULL;
-    new_node->next = NULL;
+    init_new_node(new_node, n);
+    
     if (*head == NULL)
     {
         *head = new_node;
@@ -72,7 +77,6 @@ void init_stack_a(t_stack_node **head, t_stack_node **tail, char **argv)
     }
 }
 
-//****************************************
 int stack_sorted(t_stack_node *head)
 {
     t_stack_node *curr;

@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+//define struct
 typedef struct s_stack_node
 {
     int num;
@@ -30,7 +31,7 @@ typedef struct s_stack_node
     struct s_stack_node *target_node;
 } t_stack_node;
 
-//functions to check input
+//check input
 int ft_isnum(char *str);
 int ft_atoi(char *str);
 int ft_strcmp(char *str1, char *str2);
@@ -41,22 +42,19 @@ void ft_putstr(char *str);
 
 //functions to init the stack
 int count_nodes(t_stack_node *stack);
-void init_stack_a(t_stack_node **head, t_stack_node **tail, char **argv);
-void append_node(t_stack_node **head, t_stack_node **tail,  int n);
-void ft_swap(t_stack_node **head);
-int count_nodes(t_stack_node *stack);
 void lst_dealloc(t_stack_node **head, t_stack_node **tail);
-int stack_sorted(t_stack_node *stack);
+void append_node(t_stack_node **head, t_stack_node **tail,  int n);
+void init_stack_a(t_stack_node **head, t_stack_node **tail, char **argv);
+int stack_sorted(t_stack_node *head);
+void init_new_node(t_stack_node *new_node, int n);
 
-
-
-//functions commands
+//functions for sorting
 void ft_swap(t_stack_node **head);
 t_stack_node *find_biggest(t_stack_node *head);
-void sort_three(t_stack_node **head, t_stack_node **tail);
+void sa(t_stack_node **stack, int print);
 void ra(t_stack_node **head, t_stack_node **tail, int print);
 void rra(t_stack_node **head, t_stack_node **tail, int print);
-void sa(t_stack_node **stack, int print);
-
+void sort_three(t_stack_node **head, t_stack_node **tail);
+void push_ab(t_stack_node **a, t_stack_node **b);
 
 #endif

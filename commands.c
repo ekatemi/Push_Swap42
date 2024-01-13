@@ -19,21 +19,17 @@ void ft_swap(t_stack_node **head)
         // Not enough elements to swap
         return;
     }
-
     t_stack_node *first_node = *head;
     t_stack_node *second_node = first_node->next;
-
     // Adjusting links for the swap
     first_node->next = second_node->next;
     first_node->prev = second_node;
     second_node->next = first_node;
     second_node->prev = NULL;
-
     // Update the previous of the node after the swapped nodes
     if (first_node->next != NULL) {
         first_node->next->prev = first_node;
     }
-
     // Update the head to point to the new first node
     *head = second_node;
 }
@@ -74,7 +70,7 @@ void sort_three(t_stack_node **head, t_stack_node **tail)
         ra(head, tail, 1);
     else if (biggest == (*head)->next)
         rra(head, tail, 1);
-    else if (biggest == (*head)->next->next)
+    else if (biggest == *tail)
         sa(head, 1);
 }
 
@@ -111,7 +107,22 @@ void rra(t_stack_node **head, t_stack_node **tail, int print)
         write(1, "rra\n", 4);
 }
 
-//void swap(t_stack_node **a, t_stack_node **b);
+void push_ab(t_stack_node **dest_head, t_stack_node **src_head)
+{
+    if (*src_head == NULL) //stack is empty nothing to push
+        return ;
+    
+    t_stack_node *pushed = *src_head;
+    pushed->prev = NULL;
+    pushed->next = *dest_head;
+    //stackdest is empty
+    if (*dest_head != NULL)
+    {
+        (*dest_head)->prev = pushed;
+    }    
+    *dest_head = pushed;
+
+}
 /*function to upate stack
     find above/below median
     for ss
