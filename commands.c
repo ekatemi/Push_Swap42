@@ -45,13 +45,13 @@ void sa(t_stack_node **stack, int print)
         ft_putstr("sa\n");
 }
 
-t_stack_node *find_biggest(t_stack_node *stack)
+t_stack_node *find_biggest(t_stack_node *head)
 {
-    if (stack == NULL)
+    if (head == NULL)
         return NULL;
     
-    t_stack_node *biggest = stack;
-    t_stack_node *current = stack;
+    t_stack_node *biggest = head;
+    t_stack_node *current = head;
     
     
     while (current != NULL)
@@ -66,46 +66,47 @@ t_stack_node *find_biggest(t_stack_node *stack)
 }
 
 //before use it check if the stack has 3 nodes
-void sort_three(t_stack_node **stack)
+void sort_three(t_stack_node **head, t_stack_node **tail)
 {
-    t_stack_node *biggest = find_biggest(*stack);
+    t_stack_node *biggest = find_biggest(*head);
     
-    if (biggest == *stack)
-        ra(stack, 1);
-    else if (biggest == (*stack)->next)
-        rra(stack, 1);
-    else if (biggest == (*stack)->next->next)
-        sa(stack, 1);
+    if (biggest == *head)
+        ra(head, tail, 1);
+    else if (biggest == (*head)->next)
+        rra(head, tail, 1);
+    else if (biggest == (*head)->next->next)
+        sa(head, 1);
 }
 
-void ra(t_stack_node **stack, int print)
+void ra(t_stack_node **head, t_stack_node **tail, int print)
 {
-    if (*stack == NULL || (*stack)->next == NULL)
+    if (*head == NULL || (*head)->next == NULL)
         return; // Nothing to rotate
-    t_stack_node *tail = find_last(*stack);
-    t_stack_node *head = *stack;
-    t_stack_node *second = head->next;
 
-    tail->next = head;
-    head->next = NULL;
-    head->prev = tail;
+    t_stack_node *second = (*head)->next;
+
+    (*tail)->next = *head;
+    (*tail)->next->next = NULL;
     second->prev = NULL;
-    *stack = second;
+    *head = second;
+    *tail = (*tail)->next;
     if (1 == print)
         write(1, "ra\n", 3);
 }
 
-void rra(t_stack_node **stack, int print)
+void rra(t_stack_node **head, t_stack_node **tail, int print)
 {
-    t_stack_node *tail = find_last(*stack);
-    t_stack_node *head = *stack;
-
-    tail->prev->next = NULL;
-    head->prev = tail;
-    tail->next = head;
-    tail->prev = NULL;
-    *stack = tail;
-
+    if (*head == NULL || (*head)->next == NULL)
+        return; // Nothing to rotate
+    t_stack_node *previous = (*tail)->prev;
+    
+    previous->next = NULL;
+    (*head)->prev = *tail;
+    (*tail)->prev = NULL;
+    (*tail)->next = *head;
+    *head = *tail;
+    *tail = previous;
+      
     if (1 == print)
         write(1, "rra\n", 4);
 }

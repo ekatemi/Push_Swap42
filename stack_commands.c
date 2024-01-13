@@ -13,7 +13,7 @@ int count_nodes(t_stack_node *stack)
     return(i);
 }
 
-void lst_dealloc(t_stack_node **head)
+void lst_dealloc(t_stack_node **head, t_stack_node **tail)
 {
     if (*head == NULL)
         return ;
@@ -25,9 +25,41 @@ void lst_dealloc(t_stack_node **head)
     }
     free(current);
     *head = NULL;
+    *tail = NULL;
 }
 
-void init_stack_a(t_stack_node **head, char **argv)
+void append_node(t_stack_node **head, t_stack_node **tail,  int n)
+{
+    t_stack_node *new_node;
+    new_node = malloc(sizeof(t_stack_node));
+    if (new_node == NULL)
+    {
+        lst_dealloc(head, tail);
+        exit(1);
+    }
+    //init_new_node(new_node, n);
+    new_node->num = n;
+    new_node->index = 0;
+    new_node->push_cost = 0;
+    new_node->above_median = 0;
+    new_node->cheapest = 0;
+    new_node->target_node = NULL;
+    new_node->prev = NULL;
+    new_node->next = NULL;
+    if (*head == NULL)
+    {
+        *head = new_node;
+        *tail = new_node;
+    }
+    else
+    {
+        (*tail)->next = new_node;
+        new_node->prev = *tail;
+        *tail = new_node;
+    }
+}
+
+void init_stack_a(t_stack_node **head, t_stack_node **tail, char **argv)
 {
     int n;
     int i = 1;
@@ -35,73 +67,23 @@ void init_stack_a(t_stack_node **head, char **argv)
     while(argv[i])
     {
         n = ft_atoi(argv[i]);
-        append_node(head, n);
+        append_node(head, tail, n);
         i++;
     }
 }
 
-t_stack_node *new_node(int *n)
-{
-    t_stack_node *node;
-    node = malloc(sizeof(t_stack_node));
-    if (node == NULL)
-        return NULL;
-    node->num = *n;
-    node->index = 0;
-    node->push_cost = 0;
-    node->above_median = 0;
-    node->cheapest = 0;
-    node->target_node = NULL;
-    //node->prev = NULL; //not shure
-    node->next = NULL;
-    return (node);
-}
-
-void append_node(t_stack_node **stack,  int n)
-{
-    t_stack_node *node = new_node(&n);
-    t_stack_node *last_node;
-    
-    if (!node)
-    {
-        lst_dealloc(stack);
-        exit(1);
-    }
-    
-    if (!(*stack))
-    {
-        *stack = node;
-        node->prev = NULL;
-    }
-    else 
-    {
-        last_node = find_last(*stack);
-        last_node->next = node;
-        node->prev = last_node;
-        last_node = node;
-    }
-}
-
-t_stack_node *find_last(t_stack_node *stack) 
-{
-    if (stack == NULL)
-        return NULL;  // Return NULL if the stack is empty without * because *stack and not **stack
-    // Traverse the list until the last node is reached
-    while (stack->next != NULL)
-        stack = stack->next;
-    return stack;
-}
-
 //****************************************
-int stack_sorted(t_stack_node *stack)
+int stack_sorted(t_stack_node *head)
 {
-    if(!stack)
+    t_stack_node *curr;
+    curr = head;
+    if(head == NULL)
         return (-1);
-    while (stack->next != NULL)
+    while (curr->next != NULL)
     {
-        if(stack->num > stack->next->num)
+        if(curr->num > curr->next->num)
             return(0);
-        stack = stack->next;
+        curr = curr->next;
     }
     return(1);
 }
