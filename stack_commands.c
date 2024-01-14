@@ -13,19 +13,36 @@ int count_nodes(t_stack_node *stack)
     return(i);
 }
 
-void lst_dealloc(t_stack_node **head, t_stack_node **tail)
+t_stack_node    *find_last_node(t_stack_node *head)
+{
+	if (NULL == head)
+		return (NULL);
+	while (head->next != NULL)
+		head = head->next;
+	return (head);
+}
+
+t_stack_node    *find_prev_last_node(t_stack_node *head)
+{
+	if (NULL == head)
+		return (NULL);
+	while (head->next->next != NULL)
+		head = head->next;
+	return (head);
+}
+
+void lst_dealloc(t_stack_node **head)
 {
     if (*head == NULL)
         return ;
     t_stack_node *current = *head;
-    while (current->next != NULL)
+    while (current != NULL)
     {
+        t_stack_node *aux = current;
         current = current->next;
-        free(current->prev);
+        free(aux);
     }
-    free(current);
     *head = NULL;
-    *tail = NULL;
 }
 
 void init_new_node(t_stack_node *new_node, int n)
@@ -36,17 +53,17 @@ void init_new_node(t_stack_node *new_node, int n)
     new_node->above_median = 0;
     new_node->cheapest = 0;
     new_node->target_node = NULL;
-    new_node->prev = NULL;
     new_node->next = NULL;
 }
 
-void append_node(t_stack_node **head, t_stack_node **tail,  int n)
+void append_node(t_stack_node **head,  int n)
 {
     t_stack_node *new_node;
+    t_stack_node *last_node = find_last_node(*head);
     new_node = malloc(sizeof(t_stack_node));
     if (new_node == NULL)
     {
-        lst_dealloc(head, tail);
+        lst_dealloc(head);
         exit(1);
     }
     init_new_node(new_node, n);
@@ -54,17 +71,14 @@ void append_node(t_stack_node **head, t_stack_node **tail,  int n)
     if (*head == NULL)
     {
         *head = new_node;
-        *tail = new_node;
     }
     else
     {
-        (*tail)->next = new_node;
-        new_node->prev = *tail;
-        *tail = new_node;
+        last_node->next = new_node;
     }
 }
 
-void init_stack_a(t_stack_node **head, t_stack_node **tail, char **argv)
+void init_stack_a(t_stack_node **head, char **argv)
 {
     int n;
     int i = 1;
@@ -72,7 +86,7 @@ void init_stack_a(t_stack_node **head, t_stack_node **tail, char **argv)
     while(argv[i])
     {
         n = ft_atoi(argv[i]);
-        append_node(head, tail, n);
+        append_node(head, n);
         i++;
     }
 }

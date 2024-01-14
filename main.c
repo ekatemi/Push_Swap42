@@ -21,36 +21,17 @@ static void print_stack(t_stack_node *stack)
     }
     printf("\n");
 }
-static void print_stack_rev(t_stack_node *tail)
-{
-    t_stack_node *curr;
-
-    curr = tail;
-    while (curr != NULL) {
-        printf("%d\n", curr->num);
-        curr = curr->prev;
-    }
-    printf("\n");
-}
-
 
 int main(int  argc, char  **argv)
 {
     
-    t_stack_node *head_a;
-    t_stack_node *tail_a;
-
-    t_stack_node *head_b;
-    t_stack_node *tail_b;
-
+    t_stack_node *a;  
+    t_stack_node *b;
+    
     int i;
-
     i = 1;
-    head_a = NULL;
-    tail_a = NULL;
-
-    head_b = NULL;
-    tail_b = NULL;
+    a = NULL;
+    b = NULL;
     
     if (argc == 1 || (argc == 2 && !argv[1][0]))
         return (1);
@@ -64,36 +45,35 @@ int main(int  argc, char  **argv)
         }
         i++;
     }
-    init_stack_a(&head_a, &tail_a, argv);
+    init_stack_a(&a, argv);
     printf("Stack input------>\n");
-    print_stack(head_a);
-    
-    printf("stack a------>\n");
-    print_stack(head_a);
-    printf("stack b------>\n");
-    print_stack(head_b);
-    push_ab(&head_a, &head_b);
-    print_stack(head_a);
+    print_stack(a);
+
     printf("Commands------>\n");
-    while (!stack_sorted(head_a))
+    while (!stack_sorted(a))
     {
-        if (count_nodes(head_a) == 2)
-            sa(&head_a, 1);
-        else if (count_nodes(head_a) == 3)
-            sort_three(&head_a, &tail_a);
+        if (count_nodes(a) == 2)
+        {
+            sa(&a, 1, 'a');
+        }
+        else if (count_nodes(a) == 3)
+        {
+            sort_three(&a);
+            //countloops++;
+        }
         else
-            return (0); //temporary, here goes push_swap function
+            return 1;
     }
+
     //here code doesnt go because of return statement above
-    printf("sorted------>\n");
-    print_stack(head_a);
-    printf("Reversed------>\n");
-    print_stack_rev(tail_a);
+    printf("A------>\n");
+    print_stack(a);
+    printf("B------>\n");
+    print_stack(b);
     
-    lst_dealloc(&head_a, &tail_a);
+    lst_dealloc(&a);
     printf("deallocation check------>\n");
-    print_stack(head_a);
-    print_stack_rev(head_a);
+    print_stack(a);
     
     return (0);
 }

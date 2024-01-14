@@ -23,12 +23,11 @@ typedef struct s_stack_node
     int num;
     int index;
     int push_cost;
-    int above_median;
-    int cheapest;
+    int above_median; //1 yes 0 not
+    int cheapest; //1 yes 0 not
 
     struct s_stack_node *next;
-    struct s_stack_node *prev;
-    struct s_stack_node *target_node;
+    struct s_stack_node *target_node; //for b - closer smallest, for a - closest bigger
 } t_stack_node;
 
 //check input
@@ -42,19 +41,24 @@ void ft_putstr(char *str);
 
 //functions to init the stack
 int count_nodes(t_stack_node *stack);
-void lst_dealloc(t_stack_node **head, t_stack_node **tail);
-void append_node(t_stack_node **head, t_stack_node **tail,  int n);
-void init_stack_a(t_stack_node **head, t_stack_node **tail, char **argv);
+t_stack_node    *find_last_node(t_stack_node *head);
+t_stack_node    *find_prev_last_node(t_stack_node *head);
+void lst_dealloc(t_stack_node **head);
+void append_node(t_stack_node **head,  int n);
+void init_stack_a(t_stack_node **head, char **argv);
 int stack_sorted(t_stack_node *head);
 void init_new_node(t_stack_node *new_node, int n);
 
 //functions for sorting
 void ft_swap(t_stack_node **head);
 t_stack_node *find_biggest(t_stack_node *head);
-void sa(t_stack_node **stack, int print);
-void ra(t_stack_node **head, t_stack_node **tail, int print);
-void rra(t_stack_node **head, t_stack_node **tail, int print);
-void sort_three(t_stack_node **head, t_stack_node **tail);
-void push_ab(t_stack_node **a, t_stack_node **b);
+void sa(t_stack_node **stack, int print, char stack_name);
+void ra(t_stack_node **head, int print, char stack_name);
+void rra(t_stack_node **head, int print, char stack_name);
+void sort_three(t_stack_node **head);
+void push_ab(t_stack_node **dest, t_stack_node **src);
+void ss(t_stack_node **a, t_stack_node **b, int print);
+void rr(t_stack_node **a, t_stack_node **b, int print);
+void rrr (t_stack_node **a, t_stack_node **b, int print);
 
 #endif
