@@ -112,16 +112,21 @@ void push_ab(t_stack_node **dest_head, t_stack_node **src_head)
     if (*src_head == NULL) //stack is empty nothing to push
         return ;
     
-    t_stack_node *pushed = *src_head;
-    pushed->prev = NULL;
-    pushed->next = *dest_head;
+    t_stack_node *to_push = *src_head;
+    *src_head = (*src_head)->next;
+    
     //stackdest is empty
-    if (*dest_head != NULL)
+    if (*dest_head == NULL)
     {
-        (*dest_head)->prev = pushed;
-    }    
-    *dest_head = pushed;
-
+        *dest_head = to_push;
+        to_push->next = NULL;
+    }
+    else
+    {
+        to_push->next = *dest_head;
+        (*dest_head)->prev = to_push;
+        *dest_head = to_push;
+    }
 }
 /*function to upate stack
     find above/below median

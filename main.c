@@ -68,9 +68,12 @@ int main(int  argc, char  **argv)
     printf("Stack input------>\n");
     print_stack(head_a);
     
-    push_ab(&head_b, &head_a);
+    printf("stack a------>\n");
     print_stack(head_a);
+    printf("stack b------>\n");
     print_stack(head_b);
+    push_ab(&head_a, &head_b);
+    print_stack(head_a);
     printf("Commands------>\n");
     while (!stack_sorted(head_a))
     {
@@ -78,7 +81,10 @@ int main(int  argc, char  **argv)
             sa(&head_a, 1);
         else if (count_nodes(head_a) == 3)
             sort_three(&head_a, &tail_a);
+        else
+            return (0); //temporary, here goes push_swap function
     }
+    //here code doesnt go because of return statement above
     printf("sorted------>\n");
     print_stack(head_a);
     printf("Reversed------>\n");
