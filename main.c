@@ -52,11 +52,11 @@ int main(int  argc, char  **argv)
     printf("Commands------>\n");
     while (!stack_sorted(a))
     {
-        if (count_nodes(a) == 2)
+        if (list_len(a) == 2)
         {
             sa(&a, 1, 'a');
         }
-        else if (count_nodes(a) == 3)
+        else if (list_len(a) == 3)
         {
             sort_three(&a);
             //countloops++;

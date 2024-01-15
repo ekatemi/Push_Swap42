@@ -93,7 +93,7 @@ void ra(t_stack_node **head, int print, char stack_name)
 
 void rra(t_stack_node **head, int print, char stack_name)
 {
-    if (count_nodes(*head) < 3)
+    if (list_len(*head) < 3)
         return; // Nothing to rotate, better swap
     t_stack_node *last_node = find_last_node(*head);
     t_stack_node *new_last = find_prev_last_node(*head);

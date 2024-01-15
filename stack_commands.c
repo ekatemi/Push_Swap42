@@ -1,16 +1,18 @@
 #include "push_swap.h"
 
-int count_nodes(t_stack_node *stack)
+long int list_len(t_stack_node *stack)
 {
-    int i;
+    t_stack_node *current;
+    long int len;
 
-    i = 0;
-    while (stack != NULL)
-        {
-            i++;
-            stack = stack->next;
-        }
-    return(i);
+    current = stack;
+    len = 0;
+    while (current != NULL)
+    {
+        current = current->next;
+        len++;
+    }
+    return (len);
 }
 
 t_stack_node    *find_last_node(t_stack_node *head)

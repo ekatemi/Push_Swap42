@@ -40,7 +40,7 @@ int ft_checkdup(char  **argv, int current);
 void ft_putstr(char *str);
 
 //functions to init the stack
-int count_nodes(t_stack_node *stack);
+long int list_len(t_stack_node *stack);
 t_stack_node    *find_last_node(t_stack_node *head);
 t_stack_node    *find_prev_last_node(t_stack_node *head);
 void lst_dealloc(t_stack_node **head);
