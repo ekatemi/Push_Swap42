@@ -32,24 +32,27 @@ void    set_index_and_above_med(t_stack_node *stack)
         i++; //maybe ++i
     }
 }
-/*
-void    set_push_cost(t_stack_node *stack)
+
+void    set_push_cost(t_stack_node *stack, t_stack_node *node)
 {
-    t_stack_node *current;
-    size_t i;
+    int push_cost;
+    if (node->above_median == 1)
+        node->push_cost = node->index;
+    else
+        node->push_cost = list_len(stack) - node->index;
+}
 
-    i = 0;
-    current = stack;
-    while (current != NULL)
-    {
-        current->index = i;
-        current = current->next;
-        i++;
-    }
-}*/
+//push cost optimisation when we do rr or rrr or ss
 
-t_stack_node set_target_node(t_stack_node *a, t_stack_node *b)
+t_stack_node set_target_node_b(t_stack_node *a, t_stack_node *b)
 {
     //closest smaller value
     //if no closest smaller, bigger
+}
+
+t_stack_node set_target_node_a(t_stack_node *a, t_stack_node *b)
+{
+    //closest bigger value
+    //if no 
+    //closest bigger, smaller
 }
