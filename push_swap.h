@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <limits.h>
 
 //define struct
 typedef struct s_stack_node
@@ -49,9 +50,17 @@ void init_stack_a(t_stack_node **head, char **argv);
 int stack_sorted(t_stack_node *head);
 void init_new_node(t_stack_node *new_node, int n);
 
+//functionas to update stacks
+void set_target_node_a(t_stack_node *a, t_stack_node *b);
+void set_target_node_b(t_stack_node *a, t_stack_node *b);
+void    set_push_cost(t_stack_node *stack);
+void    set_index_and_above_med(t_stack_node *stack);
+
+
 //functions for sorting
 void ft_swap(t_stack_node **head);
 t_stack_node *find_biggest(t_stack_node *head);
+t_stack_node *find_smallest(t_stack_node *head);
 void sa(t_stack_node **stack, int print, char stack_name);
 void ra(t_stack_node **head, int print, char stack_name);
 void rra(t_stack_node **head, int print, char stack_name);

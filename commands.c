@@ -62,6 +62,23 @@ t_stack_node *find_biggest(t_stack_node *head)
     return(biggest);
 }
 
+t_stack_node *find_smallest(t_stack_node *head)
+{
+    if (head == NULL)
+        return NULL;
+    
+    t_stack_node *smallest = head;
+    t_stack_node *current = head;
+
+    while (current != NULL)
+    {
+        if (current->num < smallest->num)
+            smallest = current;
+        current = current->next;
+    }
+    return(smallest);
+}
+
 //before use it check if the stack has 3 nodes
 void sort_three(t_stack_node **head)
 {
