@@ -125,46 +125,49 @@ void set_target_node_b(t_stack_node *a, t_stack_node *b)
     //closest bigger, smaller
 }
 
+static int push_price_opt(t_stack_node *stack)
+{
+    t_stack_node *current = stack;
+    int price;
+
+    while (current != NULL)
+    {
+        if (current->above_median == current->target_node->above_median)
+        {
+            if (current->target_node->push_cost >= current->push_cost)
+                price = current->target_node->push_cost;
+            else
+                price = current->push_cost;
+        }
+        price = current->push_cost + current->target_node->push_cost;
+        current = current->next;
+    }
+    return (price);
+}
 
 
-
-void set_cheapest(t_stack_node *stack) {
+void set_cheapest(t_stack_node *stack) 
+{
     int curr_price = INT_MAX;
     t_stack_node *current = stack;
     t_stack_node *cheapest_node = NULL;
 
     // Find the cheapest node
-    while (current != NULL) {
-        if (current->above_median == current->target_node->above_median) 
-        {
-            int cost_to_compare;
-            if (current->target_node->push_cost >= current->push_cost) {
-                cost_to_compare = current->target_node->push_cost;
-            } else {
-                cost_to_compare = current->push_cost;
-            }
-
-            if (cost_to_compare < curr_price) 
+    while (current != NULL) 
+    {
+        int cost_to_compare = push_price_opt(stack);
+        if (cost_to_compare < curr_price) 
             {
                 curr_price = cost_to_compare;
                 cheapest_node = current;
             }
-        } 
-        else 
-        {
-            int cost_to_compare = current->push_cost + current->target_node->push_cost;
-            if (cost_to_compare < curr_price) 
-            {
-                curr_price = cost_to_compare;
-                cheapest_node = current;
-            }
-        }
         current = current->next;
     }
 
     // Set cheapest to 1 for the cheapest node and 0 for others
     current = stack;
-    while (current != NULL) {
+    while (current != NULL) 
+    {
         if (current == cheapest_node) {
             current->cheapest = 1;
         } else {
