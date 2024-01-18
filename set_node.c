@@ -127,28 +127,49 @@ void set_target_node_b(t_stack_node *a, t_stack_node *b)
 
 
 
-void set_cheapest(t_stack_node *stack)
-{
-    int price_adj = 0;
-    int price = 0;
 
+void set_cheapest(t_stack_node *stack) {
+    int curr_price = INT_MAX;
     t_stack_node *current = stack;
+    t_stack_node *cheapest_node = NULL;
 
-    while (current != NULL)
-    {
-        if ((current->above_median == 1 && current->target_node->above_median == 1) 
-            || (current->above_median == 0 && current->target_node->above_median == 0))
+    // Find the cheapest node
+    while (current != NULL) {
+        if (current->above_median == current->target_node->above_median) 
         {
-            if (current->push_cost <= current->target_node->push_cost)
-                price_adj = current->push_cost;
-            else if (current->push_cost > current->target_node->push_cost)
-                price_adj = current->target_node->push_cost;
-        }
+            int cost_to_compare;
+            if (current->target_node->push_cost >= current->push_cost) {
+                cost_to_compare = current->target_node->push_cost;
+            } else {
+                cost_to_compare = current->push_cost;
+            }
+
+            if (cost_to_compare < curr_price) 
+            {
+                curr_price = cost_to_compare;
+                cheapest_node = current;
+            }
+        } 
         else 
         {
-            price_adj = 0;   
+            int cost_to_compare = current->push_cost + current->target_node->push_cost;
+            if (cost_to_compare < curr_price) 
+            {
+                curr_price = cost_to_compare;
+                cheapest_node = current;
+            }
         }
-        price = (current->push_cost + current->target_node->push_cost) - price_adj; 
+        current = current->next;
+    }
+
+    // Set cheapest to 1 for the cheapest node and 0 for others
+    current = stack;
+    while (current != NULL) {
+        if (current == cheapest_node) {
+            current->cheapest = 1;
+        } else {
+            current->cheapest = 0;
+        }
         current = current->next;
     }
 }
