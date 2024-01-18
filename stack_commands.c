@@ -107,3 +107,39 @@ int stack_sorted(t_stack_node *head)
     }
     return(1);
 }
+
+t_stack_node *find_biggest(t_stack_node *head)
+{
+    if (head == NULL)
+        return NULL;
+    
+    t_stack_node *biggest = head;
+    t_stack_node *current = head;
+    
+    while (current != NULL)
+    {
+        if (current->num > biggest->num)
+        {
+            biggest = current;
+        }
+        current = current->next;
+    }
+    return(biggest);
+}
+
+t_stack_node *find_smallest(t_stack_node *head)
+{
+    if (head == NULL)
+        return NULL;
+    
+    t_stack_node *smallest = head;
+    t_stack_node *current = head;
+
+    while (current != NULL)
+    {
+        if (current->num < smallest->num)
+            smallest = current;
+        current = current->next;
+    }
+    return(smallest);
+}

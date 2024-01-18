@@ -130,17 +130,16 @@ static int push_price_opt(t_stack_node *stack)
     t_stack_node *current = stack;
     int price;
 
-    while (current != NULL)
+    if (current->above_median == current->target_node->above_median)
     {
-        if (current->above_median == current->target_node->above_median)
-        {
-            if (current->target_node->push_cost >= current->push_cost)
+        if (current->target_node->push_cost >= current->push_cost)
                 price = current->target_node->push_cost;
-            else
-                price = current->push_cost;
-        }
+        else
+            price = current->push_cost;
+    }
+    else
+    {
         price = current->push_cost + current->target_node->push_cost;
-        current = current->next;
     }
     return (price);
 }
@@ -148,17 +147,17 @@ static int push_price_opt(t_stack_node *stack)
 
 void set_cheapest(t_stack_node *stack) 
 {
-    int curr_price = INT_MAX;
+    int price = INT_MAX;
     t_stack_node *current = stack;
     t_stack_node *cheapest_node = NULL;
 
     // Find the cheapest node
     while (current != NULL) 
     {
-        int cost_to_compare = push_price_opt(stack);
-        if (cost_to_compare < curr_price) 
+        int current_price = push_price_opt(current);
+        if (current_price < price) 
             {
-                curr_price = cost_to_compare;
+                price = current_price;
                 cheapest_node = current;
             }
         current = current->next;
@@ -168,11 +167,27 @@ void set_cheapest(t_stack_node *stack)
     current = stack;
     while (current != NULL) 
     {
-        if (current == cheapest_node) {
+        if (current == cheapest_node) 
+        {
             current->cheapest = 1;
-        } else {
+        } 
+        else 
+        {
             current->cheapest = 0;
         }
         current = current->next;
     }
+}
+
+void refresh_stacks(t_stack_node *a, t_stack_node *b)
+{
+    set_index_and_above_med(a);
+    set_index_and_above_med(b);
+    set_push_cost(a);
+    set_push_cost(b);
+    set_target_node_a(a, b);
+    set_target_node_b(a, b);
+    set_cheapest(a);
+    set_cheapest(b);
+    //ot shure about a and b, maybe only a
 }
