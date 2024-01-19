@@ -144,8 +144,7 @@ static int push_price_opt(t_stack_node *stack)
     return (price);
 }
 
-
-void set_cheapest(t_stack_node *stack) 
+t_stack_node *find_cheapest(t_stack_node *stack) 
 {
     int price = INT_MAX;
     t_stack_node *current = stack;
@@ -162,9 +161,17 @@ void set_cheapest(t_stack_node *stack)
             }
         current = current->next;
     }
+    return cheapest_node;
+}
+
+void set_cheapest(t_stack_node *stack) 
+{
+    
+    t_stack_node *current = stack;
+    t_stack_node *cheapest_node = find_cheapest(stack);
 
     // Set cheapest to 1 for the cheapest node and 0 for others
-    current = stack;
+
     while (current != NULL) 
     {
         if (current == cheapest_node) 

@@ -123,7 +123,7 @@ void repeat_rrr(t_stack_node **head_a, t_stack_node **head_b, int rep)
     }
 }
 
-void push_ab(t_stack_node **dest, t_stack_node **src, int print, char stack_name)
+void push_ab(t_stack_node **dest, t_stack_node **src, char stack_name)
 {
     if (*src == NULL) // stack is empty, nothing to push
         return;
@@ -143,50 +143,46 @@ void push_ab(t_stack_node **dest, t_stack_node **src, int print, char stack_name
         *dest = to_push;
     }
 
-    if (1 == print && stack_name == 'a')
+    if (stack_name == 'a')
         write(1, "pa\n", 4);
-    else if (1 == print && stack_name == 'b')
+    else if (stack_name == 'b')
         write(1, "pb\n", 4);
 }
 
-void push_swap(t_stack_node **a, t_stack_node **b)
+void push_swap(t_stack_node *a, t_stack_node *b)
 {
-    refresh_stacks(a, b);
-    t_stack_node *current_a = *a;
+    if (list_len(a) >= 5)
+    {
+        push_ab(b, a, 'b');
+        push_ab(b, a, 'b');
+    }
+}
+
+void sort_b(t_stack_node **a, t_stack_node **b)
+{
+    //refresh_stacks(a, b); this I have to do afte push 2 top from a to b
+    t_stack_node *cheapest_node = find_cheapest(a);
     
     //push a to b, sorting b
-    while (list_len(a) > 3 && list_len(b) >= 2)
+    while (list_len(a) > 3)
     {
-        while(current_a != NULL)
-        {
-            //we fount the cheapest node and it target node
-            if (current_a->cheapest == 1)
-            {
-                //take nodes to the top if needed
-                if (current_a->index == 0 && current_a->target_node->index == 0)
-                    push_ab(b, a, 1, 'b');
+    if (cheapest_node->index == 0 && cheapest_node->target_node->index == 0)
+        push_ab(b, a, 'b');
+        
                 
                 //both are above median so I can use rr
-                if (current_a->above_median == 1 && current_a->target_node->above_median == 1)
-                {
-                    if (current_a->push_cost < current_a->target_node->push_cost)
-                    {
-                        repeat_rr(a, b, current_a->push_cost);
-                        refresh_stacks(a, b);
-                    }
-                    else
-                        repeat_rr(a, b, current_a->target_node->push_cost);
-                        refresh_stacks(a, b);
-                }
-                //move node a or b to the top (other is o top)
-                /// here to write how to push the a or b on top
-        
-                //now node and target node are on top so I just push a on top of b
-                
-
-            }
-            current_a = current_a->next; //for searching for the cheapest node iterating list
+    if (cheapest_node->above_median == 1 && cheapest_node->target_node->above_median == 1)
+    {
+        if (cheapest_node->push_cost < cheapest_node->target_node->push_cost)
+        {
+            repeat_rr(a, b, cheapest_node->push_cost);
         }
+        else
+        {
+            repeat_rr(a, b, cheapest_node->target_node->push_cost);
+        }
+    refresh_stacks(a, b);
+    }
     }
 }
 
