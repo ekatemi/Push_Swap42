@@ -4,7 +4,10 @@
 void sort_three(t_stack_node **head)
 {
     t_stack_node *biggest = find_biggest(*head);
-    
+    if (stack_sorted(*head))
+        return ;
+
+
     if (biggest == *head)
         ra(head, 1, 'a');
     else if (biggest == (*head)->next)
@@ -17,7 +20,8 @@ void sort_five(t_stack_node **a,t_stack_node **b)
 {
     push_ab(b, a, 'b');
     push_ab(b, a, 'b');
-    sort_three(a);
+    if (!stack_sorted(*a))
+        sort_three(a);
     sort_a(a, b);
     smallest_ontop(a);
 }
@@ -35,25 +39,12 @@ void smallest_ontop(t_stack_node **a)
 }
 
 //use only if stack a 
-void push_swap(t_stack_node *a, t_stack_node *b)
+void push_swap(t_stack_node **a, t_stack_node **b)
 {
-    long int len = list_len(a);
-    if (len == 4)
-    {
-        push_ab(&b, &a, 'b');
-        sort_three(&a);
-        sort_a(&a, &b);
-        smallest_ontop(&a);
-    }
-    else if (len >= 5)
-    {
-        push_ab(&b, &a, 'b');
-        push_ab(&b, &a, 'b');
-        sort_b(&a, &b);
-        sort_three(&a);
-        sort_a(&a, &b);
-        smallest_ontop(&a);
-    }
+        push_ab(b, a, 'b');
+        sort_three(a);
+        sort_a(a, b);
+        //smallest_ontop(a);
 }
 
 void opt_above_median(t_stack_node **a, t_stack_node **b, t_stack_node *cheapest_node)
@@ -118,7 +109,7 @@ void sort_b(t_stack_node **a, t_stack_node **b)
 
 void sort_a(t_stack_node **a, t_stack_node **b)
 {
-    while (list_len(*b))///???
+    while (*b != NULL)///???
     {
         t_stack_node *cheapest_node = find_cheapest(*b);
 

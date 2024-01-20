@@ -77,7 +77,7 @@ void rr(t_stack_node **a, t_stack_node **b);
 void repeat_rr(t_stack_node **head_a, t_stack_node **head_b, int rep);
 void rrr (t_stack_node **a, t_stack_node **b);
 void repeat_rrr(t_stack_node **head_a, t_stack_node **head_b, int rep);
-void push_swap(t_stack_node *a, t_stack_node *b);
+void push_swap(t_stack_node **a, t_stack_node **b);
 void smallest_ontop(t_stack_node **a);
 
 void opt_above_median(t_stack_node **a, t_stack_node **b, t_stack_node *cheapest_node);

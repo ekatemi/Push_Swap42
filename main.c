@@ -60,8 +60,8 @@ int main(int  argc, char  **argv)
         {
             sort_three(&a);
         }
-        else
-            push_swap(a, b);
+        else if (list_len(a) == 5)
+            sort_five(&a, &b);
     }
 
     //here code doesnt go because of return statement above
