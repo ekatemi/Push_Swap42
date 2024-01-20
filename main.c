@@ -59,10 +59,9 @@ int main(int  argc, char  **argv)
         else if (list_len(a) == 3)
         {
             sort_three(&a);
-            //countloops++;
         }
         else
-            return 1;
+            push_swap(a, b);
     }
 
     //here code doesnt go because of return statement above

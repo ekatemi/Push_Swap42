@@ -12,13 +12,10 @@
 
 #include "push_swap.h"
 
-
 void ft_swap(t_stack_node **head)
 {
-    if (*head == NULL || (*head)->next == NULL) {
-        // Not enough elements to swap
+    if (*head == NULL || (*head)->next == NULL)
         return;
-    }
     t_stack_node *first_node = *head;
     t_stack_node *second_node = (*head)->next;
     first_node->next = second_node->next;
@@ -42,18 +39,6 @@ void ss(t_stack_node **a, t_stack_node **b)
     write(1, "ss\n", 3);
 }
 
-//before use it check if the stack has 3 nodes
-void sort_three(t_stack_node **head)
-{
-    t_stack_node *biggest = find_biggest(*head);
-    
-    if (biggest == *head)
-        ra(head, 1, 'a');
-    else if (biggest == (*head)->next)
-        rra(head, 1, 'a');
-    else if (biggest == (*head)->next->next)
-        sa(head, 1, 'a');
-}
 //rotate forward, first goes to the end, optionally print
 void ra(t_stack_node **head, int print, char stack_name)
 {
@@ -70,7 +55,7 @@ void ra(t_stack_node **head, int print, char stack_name)
     else if (1 == print && stack_name == 'b')
         write(1, "rb\n", 3);
 }
-
+//repeat ra or rb rep times
 void repeat_ra(t_stack_node **stack, char stack_name, int rep)
 {
     while(rep)
@@ -95,7 +80,7 @@ void rra(t_stack_node **head, int print, char stack_name)
     else if (1 == print && stack_name == 'b')
         write(1, "rrb\n", 4);
 }
-
+//repeat reverse rotate a or b rep times
 void repeat_rra(t_stack_node **stack, char stack_name, int rep)
 {
     while (rep)
@@ -104,6 +89,7 @@ void repeat_rra(t_stack_node **stack, char stack_name, int rep)
         rep--;
     }
 }
+
 //rotate a and b, always print
 void rr(t_stack_node **head_a, t_stack_node **head_b)
 {
@@ -166,72 +152,3 @@ void push_ab(t_stack_node **dest, t_stack_node **src, char stack_name)
     else if (stack_name == 'b')
         write(1, "pb\n", 4);
 }
-
-void push_swap(t_stack_node *a, t_stack_node *b)
-{
-    if (list_len(a) >= 5)
-    {
-        push_ab(b, a, 'b');
-        push_ab(b, a, 'b');
-    }
-}
-
-void sort_b(t_stack_node **a, t_stack_node **b)
-{
-    while (list_len(*a) > 3)
-    {
-        t_stack_node *cheapest_node = find_cheapest(a);
-
-        if (cheapest_node->index == 0 && cheapest_node->target_node->index == 0)
-            push_ab(b, a, 'b');
-        else if (cheapest_node->above_median == 1 && cheapest_node->target_node->above_median == 1)
-        {
-            int rep = 0;
-            if (cheapest_node->push_cost < cheapest_node->target_node->push_cost)
-            {
-                rep = cheapest_node->target_node->push_cost - cheapest_node->push_cost;
-                repeat_rr(a, b, cheapest_node->push_cost);
-                repeat_ra(a, 'b', rep); ///here to check!!!
-            }
-            else
-            {
-                rep = cheapest_node->push_cost - cheapest_node->target_node->push_cost;
-                repeat_rr(a, b, cheapest_node->target_node->push_cost);
-                repeat_ra(a, 'a', rep);
-            }
-        }
-        else if (cheapest_node->above_median == 0 && cheapest_node->target_node->above_median == 0)
-        {
-            int rep = 0;
-            if (cheapest_node->push_cost < cheapest_node->target_node->push_cost)
-            {
-                rep = cheapest_node->target_node->push_cost - cheapest_node->push_cost;
-                repeat_rrr(a, b, cheapest_node->push_cost);
-                repeat_rra(a, 'a', rep);
-            }
-            else
-            {
-                rep = cheapest_node->push_cost - cheapest_node->target_node->push_cost;
-                repeat_rrr(a, b, cheapest_node->target_node->push_cost);
-                repeat_rra(a, 'a', rep);
-            }
-        }
-
-        refresh_stacks(a, b);
-    }
-}
-
-/*
-void push_swap(t_stack_node **a, t_stack_node **b)
-{
-    if (list_len(a) > 3)
-    {
-        push_ab(b, a, 1, 'b');
-        push_ab(b, a, 1, 'b');
-//push swap until stack a == 3
-//sort three
-//push all b to a
-//smallest number on top
-    }
-    else 
-}*/

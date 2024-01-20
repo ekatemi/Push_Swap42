@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+//FUNCTIONS TO SET STACKS
 void    set_index_and_above_med(t_stack_node *stack)
 {
     t_stack_node *current;
@@ -57,7 +57,7 @@ void set_target_node_a(t_stack_node *a, t_stack_node *b)
     
     while (current_a != NULL)
     {
-        if (current_a->num == find_smallest(a) && current_a->num < find_smallest(b))
+        if (current_a->num == find_smallest(a)->num && current_a->num < find_smallest(b)->num)
             current_a->target_node = find_biggest(b);
         else 
         {
@@ -94,7 +94,7 @@ void set_target_node_b(t_stack_node *a, t_stack_node *b)
     
     while (current_b != NULL)
     {
-        if (current_b->num == find_biggest(b) && current_b->num < find_biggest(a))
+        if (current_b->num == find_biggest(b)->num && current_b->num < find_biggest(a)->num)
             current_b->target_node = find_smallest(a);
         else 
         {

@@ -12,12 +12,7 @@
 
 //FUNCTIONS TO CHECK IF INPUT IS VALID
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include "push_swap.h"
-
-//check if string contains only numbers and optionally - at start
 
 void ft_putstr(char *str)
 {
@@ -25,7 +20,7 @@ void ft_putstr(char *str)
         write(1, str++, 1);
      write(1, "\n", 1);
 }
-
+//check if string contains only numbers and optionally - at start
 int ft_isnum(char *str)
 {
     if (*str == '-')

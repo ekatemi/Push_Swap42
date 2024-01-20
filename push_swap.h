@@ -68,7 +68,9 @@ void sa(t_stack_node **stack, int print, char stack_name);
 void ra(t_stack_node **head, int print, char stack_name);
 void repeat_ra(t_stack_node **stack, char stack_name, int rep);
 void rra(t_stack_node **head, int print, char stack_name);
+void repeat_rra(t_stack_node **stack, char stack_name, int rep);
 void sort_three(t_stack_node **head);
+void sort_five(t_stack_node **a,t_stack_node **b);
 void push_ab(t_stack_node **dest, t_stack_node **src, char stack_name);
 void ss(t_stack_node **a, t_stack_node **b);
 void rr(t_stack_node **a, t_stack_node **b);
@@ -76,5 +78,11 @@ void repeat_rr(t_stack_node **head_a, t_stack_node **head_b, int rep);
 void rrr (t_stack_node **a, t_stack_node **b);
 void repeat_rrr(t_stack_node **head_a, t_stack_node **head_b, int rep);
 void push_swap(t_stack_node *a, t_stack_node *b);
+void smallest_ontop(t_stack_node **a);
+
+void opt_above_median(t_stack_node **a, t_stack_node **b, t_stack_node *cheapest_node);
+void opt_below_median(t_stack_node **a, t_stack_node **b, t_stack_node *cheapest_node);
+void sort_b(t_stack_node **a, t_stack_node **b);
+void sort_a(t_stack_node **a, t_stack_node **b);
 
 #endif
