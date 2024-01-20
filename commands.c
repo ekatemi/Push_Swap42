@@ -71,6 +71,15 @@ void ra(t_stack_node **head, int print, char stack_name)
         write(1, "rb\n", 3);
 }
 
+void repeat_ra(t_stack_node **stack, char stack_name, int rep)
+{
+    while(rep)
+    {
+        ra(stack, 1, stack_name);
+        rep--;
+    }
+}
+
 //reverse rotate, last became first, optionally print
 void rra(t_stack_node **head, int print, char stack_name)
 {
@@ -85,6 +94,15 @@ void rra(t_stack_node **head, int print, char stack_name)
         write(1, "rra\n", 4);
     else if (1 == print && stack_name == 'b')
         write(1, "rrb\n", 4);
+}
+
+void repeat_rra(t_stack_node **stack, char stack_name, int rep)
+{
+    while (rep)
+    {
+        rra(stack, 1, stack_name);
+        rep--;
+    }
 }
 //rotate a and b, always print
 void rr(t_stack_node **head_a, t_stack_node **head_b)
@@ -160,29 +178,46 @@ void push_swap(t_stack_node *a, t_stack_node *b)
 
 void sort_b(t_stack_node **a, t_stack_node **b)
 {
-    //refresh_stacks(a, b); this I have to do afte push 2 top from a to b
-    t_stack_node *cheapest_node = find_cheapest(a);
-    
-    //push a to b, sorting b
-    while (list_len(a) > 3)
+    while (list_len(*a) > 3)
     {
-    if (cheapest_node->index == 0 && cheapest_node->target_node->index == 0)
-        push_ab(b, a, 'b');
-        
-                
-                //both are above median so I can use rr
-    if (cheapest_node->above_median == 1 && cheapest_node->target_node->above_median == 1)
-    {
-        if (cheapest_node->push_cost < cheapest_node->target_node->push_cost)
+        t_stack_node *cheapest_node = find_cheapest(a);
+
+        if (cheapest_node->index == 0 && cheapest_node->target_node->index == 0)
+            push_ab(b, a, 'b');
+        else if (cheapest_node->above_median == 1 && cheapest_node->target_node->above_median == 1)
         {
-            repeat_rr(a, b, cheapest_node->push_cost);
+            int rep = 0;
+            if (cheapest_node->push_cost < cheapest_node->target_node->push_cost)
+            {
+                rep = cheapest_node->target_node->push_cost - cheapest_node->push_cost;
+                repeat_rr(a, b, cheapest_node->push_cost);
+                repeat_ra(a, 'b', rep); ///here to check!!!
+            }
+            else
+            {
+                rep = cheapest_node->push_cost - cheapest_node->target_node->push_cost;
+                repeat_rr(a, b, cheapest_node->target_node->push_cost);
+                repeat_ra(a, 'a', rep);
+            }
         }
-        else
+        else if (cheapest_node->above_median == 0 && cheapest_node->target_node->above_median == 0)
         {
-            repeat_rr(a, b, cheapest_node->target_node->push_cost);
+            int rep = 0;
+            if (cheapest_node->push_cost < cheapest_node->target_node->push_cost)
+            {
+                rep = cheapest_node->target_node->push_cost - cheapest_node->push_cost;
+                repeat_rrr(a, b, cheapest_node->push_cost);
+                repeat_rra(a, 'a', rep);
+            }
+            else
+            {
+                rep = cheapest_node->push_cost - cheapest_node->target_node->push_cost;
+                repeat_rrr(a, b, cheapest_node->target_node->push_cost);
+                repeat_rra(a, 'a', rep);
+            }
         }
-    refresh_stacks(a, b);
-    }
+
+        refresh_stacks(a, b);
     }
 }
 

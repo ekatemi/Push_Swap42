@@ -66,6 +66,7 @@ t_stack_node *find_biggest(t_stack_node *head);
 t_stack_node *find_smallest(t_stack_node *head);
 void sa(t_stack_node **stack, int print, char stack_name);
 void ra(t_stack_node **head, int print, char stack_name);
+void repeat_ra(t_stack_node **stack, char stack_name, int rep);
 void rra(t_stack_node **head, int print, char stack_name);
 void sort_three(t_stack_node **head);
 void push_ab(t_stack_node **dest, t_stack_node **src, char stack_name);
