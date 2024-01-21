@@ -1,19 +1,16 @@
 #include "push_swap.h"
 
-void sort_three(t_stack_node **stack)
+void	sort_three(t_stack_node **a)
 {
-    t_stack_node *biggest;
-    
-    biggest = find_max(*stack);
-    if (stack_sorted(*stack))
-        return ;
-    
-    if (biggest == *stack)
-        ra(stack, 1);
-    else if (biggest == (*stack)->next)
-        rra(stack, 1);
-    else if (biggest == (*stack)->next->next) //maybe change
-        sa(stack, 1);
+	t_stack_node	*biggest_node;
+
+	biggest_node = find_max(*a);
+	if (biggest_node == *a)
+		ra(a, 1);
+	else if ((*a)->next == biggest_node)
+		rra(a, 1);
+	if ((*a)->num > (*a)->next->num) //Check if the bottom node is the biggest, but the top node is higher than the second node
+		sa(a, 1);
 }
 
 static void	rotate_both(t_stack_node **a,

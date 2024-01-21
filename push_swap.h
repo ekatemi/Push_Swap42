@@ -38,8 +38,6 @@ int ft_atoi(char *str);
 int ft_strcmp(char *str1, char *str2);
 int ft_checkdup(char  **argv, int current);
 
-//etc
-void ft_putstr(char *str);
 
 //functions to init the stack
 long int stack_len(t_stack_node *stack);
@@ -50,18 +48,14 @@ void append_node(t_stack_node **head,  int n);
 void init_stack_a(t_stack_node **head, char **argv);
 int stack_sorted(t_stack_node *head);
 void    init_new_node(t_stack_node *new_node, int n);
-
-//functionas to update stacks
 t_stack_node	*get_cheapest(t_stack_node *stack);
 void	prep_for_push(t_stack_node **stack, t_stack_node *top_node, char stack_name);
-
 t_stack_node *find_min(t_stack_node *stack);
 t_stack_node *find_max(t_stack_node *head);
-//functions for sorting
-
-
-void sort_three(t_stack_node **head);
-
+void	current_index(t_stack_node *stack);
+void	set_cheapest(t_stack_node *stack);
+void	init_nodes_a(t_stack_node *a, t_stack_node *b);
+void	init_nodes_b(t_stack_node *a, t_stack_node *b);
 
 //COMMANDS
 void push(t_stack_node **dest, t_stack_node **src);
@@ -81,16 +75,7 @@ void	ss(t_stack_node **a, t_stack_node **b, int print);
 
 //SORTING
 void sort_three(t_stack_node **head);
-
 void	sort_stacks(t_stack_node **a, t_stack_node **b);
-
-//a to b
-void	current_index(t_stack_node *stack);
-
-void	set_cheapest(t_stack_node *stack);
-void	init_nodes_a(t_stack_node *a, t_stack_node *b);
-
-void	init_nodes_b(t_stack_node *a, t_stack_node *b);
 
 
 #endif
