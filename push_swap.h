@@ -56,7 +56,7 @@ void    set_target_for_b(t_stack_node *a, t_stack_node *b);
 void    set_push_cost(t_stack_node *stack);
 void    set_index_and_above_med(t_stack_node *stack);
 
-void set_cheapest_a(t_stack_node *a, t_stack_node *b);
+void set_cheapest_a(t_stack_node *a);
 void refresh_stack_a(t_stack_node *a, t_stack_node *b);
 t_stack_node *find_cheapest(t_stack_node *a);
 

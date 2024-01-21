@@ -121,12 +121,12 @@ int push_price_opt(t_stack_node *a)
     return (price);
 }
 
-void set_cheapest_a(t_stack_node *a, t_stack_node *b) 
+void set_cheapest_a(t_stack_node *a) 
 {
 
     long price = LONG_MAX;
-    t_stack_node *cheapest_node = NULL;
-    refresh_stack_a(a, b);
+    t_stack_node *cheapest_node = a;
+    set_index_and_above_med(a);
     // Find the cheapest node
     while (a != NULL) 
     {
@@ -166,7 +166,7 @@ void refresh_stack_a(t_stack_node *a, t_stack_node *b) //HERE THE PROBLEM
     set_push_cost(a);
     set_push_cost(b);
     set_target_for_a(a, b);
-    set_cheapest_a(a, b);
+    set_cheapest_a(a);
 
     //ot shure about a and b, maybe only a
 }

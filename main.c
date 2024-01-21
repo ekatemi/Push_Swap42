@@ -50,7 +50,7 @@ int main(int  argc, char  **argv)
     print_stack(a);
 
     printf("Commands------>\n");
-    while (!stack_sorted(a))
+    while (!stack_sorted(a) && b == NULL)
     {
         if (list_len(a) == 2)
         {
@@ -60,7 +60,7 @@ int main(int  argc, char  **argv)
         {
             sort_three(&a);
         }
-        else
+        else //if list is longer than 5
         {
             long len_a = list_len(a);
             if (len_a-- > 3 && !stack_sorted(a))
@@ -70,16 +70,28 @@ int main(int  argc, char  **argv)
             
             while (len_a > 3 && !stack_sorted(a))
             {
-                //push_ab(&b, &a, 'b');
+                push_ab(&b, &a, 'b');
                 set_index_and_above_med(a);
                 set_index_and_above_med(b);
+                
+                set_push_cost(a);
+                set_push_cost(b);
+                set_target_for_a(a, b);
+                set_cheapest_a(a);//HERE THE ISSUE!!!
 
                 //refresh_stack_a(a, b);
                 //sort_b(&a, &b);
-                t_stack_node *curr = b;
+                t_stack_node *curr = a;
                 while (curr)
                     {
-                        printf("index %d -- value %d -- above med %d\n", curr->index, curr->num, curr->above_median);
+                        printf("index %d -- value %d -- above med %d -- push_cost %d -- cheapest %d -- val target %d\n", curr->index, curr->num, curr->above_median, curr->push_cost, curr->cheapest, curr->target_node->num);
+                        curr = curr->next;
+                    }
+
+                curr = b;
+                while (curr)
+                    {
+                        printf("index %d -- value %d -- above med %d -- push_cost %d -- cheapest %d\n", curr->index, curr->num, curr->above_median, curr->push_cost, curr->cheapest);
                         curr = curr->next;
                     }
                 len_a = list_len(a);
