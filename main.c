@@ -62,9 +62,32 @@ int main(int  argc, char  **argv)
         }
         else
         {
+            long len_a = list_len(a);
+            if (len_a-- > 3 && !stack_sorted(a))
+                push_ab(&b, &a, 'b');
+            if (len_a-- > 3 && !stack_sorted(a))
+                push_ab(&b, &a, 'b');
+            
+            while (len_a > 3 && !stack_sorted(a))
+            {
+                //push_ab(&b, &a, 'b');
+                set_index_and_above_med(a);
+                set_index_and_above_med(b);
+
+                //refresh_stack_a(a, b);
+                //sort_b(&a, &b);
+                t_stack_node *curr = b;
+                while (curr)
+                    {
+                        printf("index %d -- value %d -- above med %d\n", curr->index, curr->num, curr->above_median);
+                        curr = curr->next;
+                    }
+                len_a = list_len(a);
+            }
+            
             //printf("too many args");
             //return(0);
-            push_swap(&a, &b);
+            //push_swap(&a, &b);
         }
     }
 

@@ -159,10 +159,10 @@ t_stack_node *find_cheapest(t_stack_node *a)
     return cheapest;
 }
 
-void refresh_stack_a(t_stack_node *a, t_stack_node *b)
+void refresh_stack_a(t_stack_node *a, t_stack_node *b) //HERE THE PROBLEM
 {
-    //set_index_and_above_med(a);
-    //set_index_and_above_med(b);
+    set_index_and_above_med(a);
+    set_index_and_above_med(b);
     set_push_cost(a);
     set_push_cost(b);
     set_target_for_a(a, b);
