@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-long int list_len(t_stack_node *stack)
+long int stack_len(t_stack_node *stack)
 {
     if (!stack)
         return 0;
@@ -110,7 +110,7 @@ int stack_sorted(t_stack_node *head)
     return(1);
 }
 
-t_stack_node *find_biggest(t_stack_node *head)
+t_stack_node *find_max(t_stack_node *head)
 {
     if (head == NULL)
         return NULL;
@@ -129,7 +129,7 @@ t_stack_node *find_biggest(t_stack_node *head)
     return(biggest);
 }
 
-t_stack_node *find_smallest(t_stack_node *stack)
+t_stack_node *find_min(t_stack_node *stack)
 {
     long min; //maybe int is ok
     t_stack_node *min_node;
@@ -148,4 +148,40 @@ t_stack_node *find_smallest(t_stack_node *stack)
         stack = stack->next;
     }
     return(min_node);
+}
+
+t_stack_node	*get_cheapest(t_stack_node *stack) //Define a function that searches for the cheapest node, that is set by bool
+{
+	if (!stack)
+		return (NULL);
+	while (stack)
+	{
+		if (stack->cheapest)
+			return (stack);
+		stack = stack->next;
+	}
+	return (NULL);
+}
+
+void	prep_for_push(t_stack_node **stack,
+						t_stack_node *top_node,
+						char stack_name) //Define a function that moves the required node to the top of the stack
+{
+	while (*stack != top_node) //Check if the required node is not already the first node
+	{
+		if (stack_name == 'a') //If not, and it is stack `a`, execute the following
+		{
+			if (top_node->above_median)
+				ra(stack, 1);
+			else
+				rra(stack, 1);
+		}
+		else if (stack_name == 'b') //If not, and it is stack `b`, execute the following
+		{
+			if (top_node->above_median)
+				rb(stack, 1);
+			else
+				rrb(stack, 1);
+		}	
+	}
 }

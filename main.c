@@ -50,60 +50,15 @@ int main(int  argc, char  **argv)
     print_stack(a);
 
     printf("Commands------>\n");
-    while (!stack_sorted(a) && b == NULL)
-    {
-        if (list_len(a) == 2)
-        {
-            sa(&a, 1, 'a');
-        }
-        else if (list_len(a) == 3)
-        {
-            sort_three(&a);
-        }
-        else //if list is longer than 5
-        {
-            long len_a = list_len(a);
-            if (len_a-- > 3 && !stack_sorted(a))
-                push_ab(&b, &a, 'b');
-            if (len_a-- > 3 && !stack_sorted(a))
-                push_ab(&b, &a, 'b');
-            
-            while (len_a > 3 && !stack_sorted(a))
-            {
-                push_ab(&b, &a, 'b');
-                set_index_and_above_med(a);
-                set_index_and_above_med(b);
-                
-                set_push_cost(a);
-                set_push_cost(b);
-                set_target_for_a(a, b);
-                set_cheapest_a(a);//HERE THE ISSUE!!!
-
-                //refresh_stack_a(a, b);
-                //sort_b(&a, &b);
-                t_stack_node *curr = a;
-                while (curr)
-                    {
-                        printf("index %d -- value %d -- above med %d -- push_cost %d -- cheapest %d -- val target %d\n", curr->index, curr->num, curr->above_median, curr->push_cost, curr->cheapest, curr->target_node->num);
-                        curr = curr->next;
-                    }
-
-                curr = b;
-                while (curr)
-                    {
-                        printf("index %d -- value %d -- above med %d -- push_cost %d -- cheapest %d\n", curr->index, curr->num, curr->above_median, curr->push_cost, curr->cheapest);
-                        curr = curr->next;
-                    }
-                len_a = list_len(a);
-            }
-            
-            //printf("too many args");
-            //return(0);
-            //push_swap(&a, &b);
-        }
-    }
-
-    //here code doesnt go because of return statement above
+ 	if (!stack_sorted(a)) //Check if the stack is not sorted
+	{
+		if (stack_len(a) == 2) //If not, and there are two numbers, swap the first two nodes
+			sa(&a, 1);
+		else if (stack_len(a) == 3) //If not, and there are three numbers, call the sort three algorithm
+			sort_three(&a);
+		else
+			sort_stacks(&a, &b); //If not, and there are more than three numbers, call the sort stacks algorithm
+	}
     printf("A------>\n");
     print_stack(a);
     printf("B------>\n");
