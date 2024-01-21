@@ -16,17 +16,15 @@ void	rra(t_stack_node **a, int print) //Rotate the bottom of `a` to the top of t
 		write(1, "rra\n", 4);
 }
 
-void	rrb(t_stack_node **b, int print) //Rotate the bottom of `b` to the top of the stack and print the instruction
+void	rrb(t_stack_node **b) //Rotate the bottom of `b` to the top of the stack and print the instruction
 {
 	rev_rotate(b);
-	if (print)
-		write(1, "rrb\n", 4);
+	write(1, "rrb\n", 4);
 }
 
-void	rrr(t_stack_node **a, t_stack_node **b, int print) //Stimultaneously rotate both stacks' bottom nodes to the top of their stacks, halving the cost of instructions
+void	rrr(t_stack_node **a, t_stack_node **b) //Stimultaneously rotate both stacks' bottom nodes to the top of their stacks, halving the cost of instructions
 {
 	rev_rotate(a);
 	rev_rotate(b);
-	if (print)
-		write(1, "rrb\n", 4);
+	write(1, "rrb\n", 4);
 }

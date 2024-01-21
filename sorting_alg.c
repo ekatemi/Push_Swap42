@@ -6,11 +6,11 @@ void	sort_three(t_stack_node **a)
 
 	biggest_node = find_max(*a);
 	if (biggest_node == *a)
-		ra(a, 1);
+		ra(a);
 	else if ((*a)->next == biggest_node)
 		rra(a, 1);
 	if ((*a)->num > (*a)->next->num) //Check if the bottom node is the biggest, but the top node is higher than the second node
-		sa(a, 1);
+		sa(a);
 }
 
 static void	rotate_both(t_stack_node **a,
@@ -19,18 +19,16 @@ static void	rotate_both(t_stack_node **a,
 {
 	while (*b != cheapest_node->target_node
 		&& *a != cheapest_node) //As long as the current `b` node is not `a` cheapest node's target node, and the current top `a` node is not the top node
-		rr(a, b, 1); //Rotate both `a` and `b` nodes
+		rr(a, b); //Rotate both `a` and `b` nodes
 	current_index(*a);
 	current_index(*b);
 }
 
-static void	rev_rotate_both(t_stack_node **a,
-								t_stack_node **b,
-								t_stack_node *cheapest_node) //Define a function that rotates both the bottom `a` and `b` nodes to the top of their stacks, if it's the cheapest move
+static void	rev_rotate_both(t_stack_node **a, t_stack_node **b, t_stack_node *cheapest_node) //Define a function that rotates both the bottom `a` and `b` nodes to the top of their stacks, if it's the cheapest move
 {
 	while (*b != cheapest_node->target_node
 		&& *a != cheapest_node) //As long as the current `b` node is not `a` cheapest node's target node && and the current `a` node is not the cheapest
-		rrr(a, b, 1); //Reverse rotate both `a` and `b` nodes
+		rrr(a, b); //Reverse rotate both `a` and `b` nodes
 	current_index(*a); //Refresh current node positions
 	current_index(*b);
 }
@@ -62,7 +60,7 @@ static void	min_on_top(t_stack_node **a) //Define a function that moves the smal
 	while ((*a)->num != find_min(*a)->num) //As long as the smallest number is not at the top
 	{
 		if (find_min(*a)->above_median) //Rotate or reverse rotate according to the position of the node on the median
-			ra(a, 1);
+			ra(a);
 		else
 			rra(a, 1);
 	}

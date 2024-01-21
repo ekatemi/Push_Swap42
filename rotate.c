@@ -1,5 +1,6 @@
 #include "push_swap.h"
 
+//Function to rotate forward each stack
 void rotate(t_stack_node **head)
 {
     if (*head == NULL || (*head)->next == NULL)
@@ -12,24 +13,23 @@ void rotate(t_stack_node **head)
     first->next = NULL;
 }
 
-void	ra(t_stack_node **a, int print) //Rotate the top `a` node to the bottom of the stack, and print the instruction
+//Rotate the top `a` node to the bottom of the stack, and print the instruction
+void	ra(t_stack_node **a) 
 {
 	rotate(a);
-	if (print)
-		write(1, "ra\n", 3);
+	write(1, "ra\n", 3);
 }
 
-void	rb(t_stack_node **b, int print) //Rotate the top `b` node to the bottom of the stack, and print the instruction
+//Rotate the top `b` node to the bottom of the stack, and print the instruction
+void	rb(t_stack_node **b) 
 {
 	rotate(b);
-	if (print)
-		write(1, "rb\n", 3);
+	write(1, "rb\n", 3);
 }
-
-void	rr(t_stack_node **a, t_stack_node **b, int print) //Stimultaneously rotate both the top `a` and `b` nodes to the bottom of the stack, and print the instruction
+//Stimultaneously rotate both the top `a` and `b` nodes to the bottom of the stack, and print the instruction
+void	rr(t_stack_node **a, t_stack_node **b)
 {
 	rotate(a);
 	rotate(b);
-	if (print)
-		write(1, "rr\n", 3);
+	write(1, "rr\n", 3);
 }

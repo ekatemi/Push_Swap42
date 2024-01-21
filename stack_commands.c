@@ -172,16 +172,16 @@ void	prep_for_push(t_stack_node **stack,
 		if (stack_name == 'a') //If not, and it is stack `a`, execute the following
 		{
 			if (top_node->above_median)
-				ra(stack, 1);
+				ra(stack);
 			else
 				rra(stack, 1);
 		}
 		else if (stack_name == 'b') //If not, and it is stack `b`, execute the following
 		{
 			if (top_node->above_median)
-				rb(stack, 1);
+				rb(stack);
 			else
-				rrb(stack, 1);
+				rrb(stack);
 		}	
 	}
 }

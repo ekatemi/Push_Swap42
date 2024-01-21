@@ -63,15 +63,15 @@ void	pa(t_stack_node **a, t_stack_node **b);
 void	pb(t_stack_node **b, t_stack_node **a);
 void rev_rotate(t_stack_node **head);
 void	rra(t_stack_node **a, int print);
-void	rrb(t_stack_node **b, int print);
-void	rrr(t_stack_node **a, t_stack_node **b, int print);
+void	rrb(t_stack_node **b);
+void	rrr(t_stack_node **a, t_stack_node **b);
 void rotate(t_stack_node **head);
-void	ra(t_stack_node **a, int print);
-void	rb(t_stack_node **b, int print);
-void	rr(t_stack_node **a, t_stack_node **b, int print);
-void	sa(t_stack_node	**a, int print);
-void	sb(t_stack_node **b, int print);
-void	ss(t_stack_node **a, t_stack_node **b, int print);
+void	ra(t_stack_node **a);
+void	rb(t_stack_node **b);
+void	rr(t_stack_node **a, t_stack_node **b);
+void	sa(t_stack_node	**a);
+void	sb(t_stack_node **b);
+void	ss(t_stack_node **a, t_stack_node **b);
 
 //SORTING
 void sort_three(t_stack_node **head);
