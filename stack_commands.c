@@ -2,6 +2,8 @@
 
 long int list_len(t_stack_node *stack)
 {
+    if (!stack)
+        return 0;
     t_stack_node *current;
     long int len;
 
@@ -127,19 +129,23 @@ t_stack_node *find_biggest(t_stack_node *head)
     return(biggest);
 }
 
-t_stack_node *find_smallest(t_stack_node *head)
+t_stack_node *find_smallest(t_stack_node *stack)
 {
-    if (head == NULL)
-        return NULL;
+    long min; //maybe int is ok
+    t_stack_node *min_node;
     
-    t_stack_node *smallest = head;
-    t_stack_node *current = head;
+    min = LONG_MAX;
 
-    while (current != NULL)
+    if (stack == NULL)
+        return NULL;
+    while (stack != NULL)
     {
-        if (current->num < smallest->num)
-            smallest = current;
-        current = current->next;
+        if (stack->num < min)
+        {
+            min = stack->num;
+            min_node = stack;
+        }
+        stack = stack->next;
     }
-    return(smallest);
+    return(min_node);
 }

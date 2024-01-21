@@ -51,13 +51,14 @@ int stack_sorted(t_stack_node *head);
 void    init_new_node(t_stack_node *new_node, int n);
 
 //functionas to update stacks
-void    set_target_node_a(t_stack_node *a, t_stack_node *b);
-void    set_target_node_b(t_stack_node *a, t_stack_node *b);
+void set_target_for_a(t_stack_node *a, t_stack_node *b);
+void    set_target_for_b(t_stack_node *a, t_stack_node *b);
 void    set_push_cost(t_stack_node *stack);
 void    set_index_and_above_med(t_stack_node *stack);
-void    set_cheapest(t_stack_node *stack);
-void    refresh_stacks(t_stack_node *a, t_stack_node *b);
-t_stack_node    *find_cheapest(t_stack_node *stack);
+
+void set_cheapest_a(t_stack_node *a, t_stack_node *b);
+void refresh_stack_a(t_stack_node *a, t_stack_node *b);
+t_stack_node *find_cheapest(t_stack_node *a);
 
 
 //functions for sorting
@@ -70,7 +71,7 @@ void repeat_ra(t_stack_node **stack, char stack_name, int rep);
 void rra(t_stack_node **head, int print, char stack_name);
 void repeat_rra(t_stack_node **stack, char stack_name, int rep);
 void sort_three(t_stack_node **head);
-void sort_five(t_stack_node **a,t_stack_node **b);
+//void sort_five(t_stack_node **a,t_stack_node **b);
 void push_ab(t_stack_node **dest, t_stack_node **src, char stack_name);
 void ss(t_stack_node **a, t_stack_node **b);
 void rr(t_stack_node **a, t_stack_node **b);

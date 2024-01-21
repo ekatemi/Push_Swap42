@@ -14,187 +14,159 @@
 //FUNCTIONS TO SET STACKS
 void    set_index_and_above_med(t_stack_node *stack)
 {
-    t_stack_node *current;
+    if (!stack)
+        return;
     size_t i;
     long int median;
 
     i = 0;
     median = list_len(stack) / 2;
-    current = stack;
-    while (current != NULL)
+
+    while (stack != NULL)
     {
-        current->index = i;
-        if (current->index <= median) //check this, maybe < median
-            current->above_median = 1;
+        stack->index = i;
+        if (stack->index <= median) //check this, maybe < median
+            stack->above_median = 1;
         else
-            current->above_median = 0;
-        current = current->next;
+            stack->above_median = 0;
+        stack = stack->next;
         i++; //maybe ++i
     }
 }
-//push cost to push up each stack
-void    set_push_cost(t_stack_node *stack)
+
+void set_target_for_a(t_stack_node *a, t_stack_node *b)
 {
-    t_stack_node *current = stack;
-
-    while (current != NULL)
+    //t_stack_node *target_node;
+    t_stack_node *current_b;
+    long temp;
+    //target_node = NULL;
+    while (a != NULL)
     {
-        if (current->above_median == 1)
-            current->push_cost = current->index;
-        else
-            current->push_cost = list_len(stack) - current->index;
-        current = current->next;
-    }
-}
-
-//push cost optimisation when we do rr or rrr or ss
-
-void set_target_node_a(t_stack_node *a, t_stack_node *b)
-{
-    t_stack_node *current_a = a;
-    t_stack_node *current_b = b;
-    int diff;
-    
-    while (current_a != NULL)
-    {
-        if (current_a->num == find_smallest(a)->num && current_a->num < find_smallest(b)->num)
-            current_a->target_node = find_biggest(b);
-        else 
-        {
-            diff = INT_MAX;
-            t_stack_node *closest_smaller = NULL;
-            
+        current_b = b;
+        temp = LONG_MIN;  
             while (current_b != NULL)
             {
-                if (current_a->num < current_b->num)
+                if (current_b->num < a->num 
+                    && current_b->num > temp)
                 {
-                    current_b = current_b->next;
-                    continue;
-                }
-                if (current_a->num - current_b->num < diff)
-                {
-                    closest_smaller = current_b;
-                    diff = current_a->num - current_b->num;
+                    temp = current_b->num;
+                    a->target_node = current_b;
                 }
                 current_b = current_b->next;
             }
-            current_a->target_node = closest_smaller;
-        }
-        current_a = current_a->next;
+            if (a->target_node == NULL) //i inicialize nodes wirth target set to NULL
+                a->target_node = find_biggest(b);
+        a = a->next;
     }
     //closest smaller value
     //if no closest smaller, bigger
 }
 
-void set_target_node_b(t_stack_node *a, t_stack_node *b)
+void set_target_for_b(t_stack_node *a, t_stack_node *b)
 {
-    t_stack_node *current_a = a;
-    t_stack_node *current_b = b;
-    int diff;
+    t_stack_node *current_a;
+    //t_stack_node *target_node;
+    long temp;
     
-    while (current_b != NULL)
+    //target_node = NULL;
+    while (b != NULL)
     {
-        if (current_b->num == find_biggest(b)->num && current_b->num < find_biggest(a)->num)
-            current_b->target_node = find_smallest(a);
-        else 
+        temp = LONG_MAX;
+        current_a = a;
+        while (current_a != NULL)
         {
-            diff = INT_MAX;
-            t_stack_node *closest_bigger = NULL;
-            
-            while (current_a != NULL)
+            if (current_a->num > b->num && current_a->num < temp)
             {
-                if (current_a->num < current_b->num)
-                {
-                    current_a = current_a->next;
-                    continue;
-                }
-                
-                if (current_a->num - current_b->num < diff)
-                {
-                    closest_bigger = current_a;
-                    diff = current_a->num - current_b->num;
-                }
-                current_a = current_a->next;
+            temp = current_a->num;
+            b->target_node = current_a;
             }
-            current_b->target_node = closest_bigger;
+            current_a = current_a->next;
         }
-        current_b = current_b->next;
+        if (b->target_node == NULL)
+            b->target_node = find_smallest(a);
+    b = b->next;
     }
-    //closest bigger value
-    //if no 
-    //closest bigger, smaller
 }
+    //closest bigger value
+    //if no closest bigger, smaller
 
-static int push_price_opt(t_stack_node *stack)
+//how many moves to move node to the top
+void    set_push_cost(t_stack_node *stack)
 {
-    t_stack_node *current = stack;
+    long len = list_len(stack);
+    while (stack != NULL)
+    {
+        if (stack->above_median == 1)
+            stack->push_cost = stack->index;
+        else if (stack->above_median == 0)
+            stack->push_cost = len - stack->index;
+        stack = stack->next;
+    }
+}
+//how minimum moves to move nodes to the top
+int push_price_opt(t_stack_node *a)
+{  
     int price;
-
-    if (current->above_median == current->target_node->above_median)
+    price = 0;
+        
+    if (a->above_median == a->target_node->above_median)
     {
-        if (current->target_node->push_cost >= current->push_cost)
-                price = current->target_node->push_cost;
+        if (a->target_node->push_cost >= a->push_cost)
+            price = a->target_node->push_cost;
+        else if (a->target_node->push_cost < a->push_cost)
+                price = a->push_cost;
+        }
         else
-            price = current->push_cost;
-    }
-    else
-    {
-        price = current->push_cost + current->target_node->push_cost;
-    }
+            price = a->push_cost + a->target_node->push_cost;   
     return (price);
 }
 
-t_stack_node *find_cheapest(t_stack_node *stack) 
+void set_cheapest_a(t_stack_node *a, t_stack_node *b) 
 {
-    int price = INT_MAX;
-    t_stack_node *current = stack;
-    t_stack_node *cheapest_node = NULL;
 
+    long price = LONG_MAX;
+    t_stack_node *cheapest_node = NULL;
+    refresh_stack_a(a, b);
     // Find the cheapest node
-    while (current != NULL) 
+    while (a != NULL) 
     {
-        int current_price = push_price_opt(current);
+        int current_price = push_price_opt(a);
         if (current_price < price) 
             {
                 price = current_price;
-                cheapest_node = current;
+                cheapest_node = a;
             }
-        current = current->next;
+        a = a->next;
     }
-    return cheapest_node;
+    if (cheapest_node != NULL)
+        cheapest_node->cheapest = 1;
 }
-
-void set_cheapest(t_stack_node *stack) 
+//checks all nodes in a and if a->cheapest set to 1 it is the cheapest node.
+t_stack_node *find_cheapest(t_stack_node *a) 
 {
-    
-    t_stack_node *current = stack;
-    t_stack_node *cheapest_node = find_cheapest(stack);
+    t_stack_node *cheapest;
+    t_stack_node *current = a;
 
-    // Set cheapest to 1 for the cheapest node and 0 for others
-
+    cheapest = NULL;
     while (current != NULL) 
     {
-        if (current == cheapest_node) 
+        if (current->cheapest == 1) 
         {
-            current->cheapest = 1;
-        } 
-        else 
-        {
-            current->cheapest = 0;
+            cheapest = current;
         }
         current = current->next;
     }
+    return cheapest;
 }
 
-void refresh_stacks(t_stack_node *a, t_stack_node *b)
+void refresh_stack_a(t_stack_node *a, t_stack_node *b)
 {
-    set_index_and_above_med(a);
-    set_index_and_above_med(b);
+    //set_index_and_above_med(a);
+    //set_index_and_above_med(b);
     set_push_cost(a);
     set_push_cost(b);
-    set_target_node_a(a, b);
-    set_target_node_b(a, b);
-    set_cheapest(a);
-    set_cheapest(b);
+    set_target_for_a(a, b);
+    set_cheapest_a(a, b);
+
     //ot shure about a and b, maybe only a
 }

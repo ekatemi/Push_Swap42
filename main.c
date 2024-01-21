@@ -60,8 +60,12 @@ int main(int  argc, char  **argv)
         {
             sort_three(&a);
         }
-        else if (list_len(a) == 5)
-            sort_five(&a, &b);
+        else
+        {
+            //printf("too many args");
+            //return(0);
+            push_swap(&a, &b);
+        }
     }
 
     //here code doesnt go because of return statement above
