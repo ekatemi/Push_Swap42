@@ -106,6 +106,3 @@ int stack_sorted(t_stack_node *head)
     }
     return(1);
 }
-
-
-
