@@ -81,6 +81,8 @@ int ft_checkdup(char  **argv, int current)
     {
         if (ft_strcmp(argv[i], argv[current]) == 0)
                 return(1);
+        if (ft_atoi(argv[i]) == ft_atoi(argv[current]))
+        return(1);
         i++;    
     }
     return(0);
