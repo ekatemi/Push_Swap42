@@ -18,7 +18,7 @@ void	sort_three(t_stack_node **a)
 void sort_4(t_stack_node **a, t_stack_node **b)
 {
     t_stack_node *min = find_min_node(*a);
-    on_top(a, min);
+    on_top_a(a, min);
     pb(b, a);
     sort_three(a);
     pa(a, b);
@@ -49,33 +49,24 @@ static t_stack_node *find_closest_bigger(t_stack_node *a, int target) {
     return closest;
 }
 
-//function to define direction of rotation, 1 ra, 2 rra;
-// int dir_rotate(t_stack_node *stack, t_stack_node *target_node)
+// static t_stack_node *find_prev_idx(t_stack_node **a, t_stack_node **b)
 // {
-//     long i;
-//     long mid;
-//     int dir;
-
-//     i = 0;
-//     dir = 0;
-//     mid = list_len(stack) / 2;
-    
-//     while (stack != NULL)
+//     t_stack_node *target_node = NULL;
+//     t_stack_node *curr = *a;
+//     while (curr)
 //     {
-        
-//         if (stack == target_node && i <= mid)
-//             dir = 1;
-//         else if (stack == target_node && i > mid)
-//             dir = 2;
-//         i++;    
-//         stack = stack->next;
+//         if (curr->index == (*b)->index + 1)
+//             target_node = curr;
+//         curr = curr->next;
 //     }
-//     return (dir);
+//     return (target_node);
 // }
 
-void sort_5(t_stack_node **a, t_stack_node **b) {
+void sort_5(t_stack_node **a, t_stack_node **b) 
+{
     // Push the top two numbers from stack A to stack B
     int dir = 0;
+    //t_stack_node *target_a = NULL;
 
     pb(b, a);
     pb(b, a);
@@ -84,8 +75,19 @@ void sort_5(t_stack_node **a, t_stack_node **b) {
     sort_three(a);
 
     // Sort stack B in descending order
-    if ((*b)->num < (*b)->next->num)
+    if ((*b)->index < (*b)->next->index)
         sb(b);
+    // while (*b)
+    // {
+    //     target_a = find_prev_idx(a, b);
+    //     on_top_a(a, target_a);
+    //     pa(a, b);
+    // }
+    // on_top_a(a, target_a);
+
+
+
+    
     // Pop the sorted numbers from stack B and push them back to stack A
     while (*b) 
     {
@@ -105,16 +107,9 @@ void sort_5(t_stack_node **a, t_stack_node **b) {
         pa(a, b);
     }
 
-    // Rotate stack A to bring the smallest number to the top
+    //Rotate stack A to bring the smallest number to the top
     t_stack_node *min = find_min_node(*a);
     dir = dir_rotate(*a, min);
-    on_top(a, min);
-    // while (!stack_sorted(*a)) 
-    // {
-    //     if (dir == 1)
-    //         ra(a);
-    //     else if (dir == 2)
-    //         rra(a);
-    // }
+    on_top_a(a, min);
 }
 

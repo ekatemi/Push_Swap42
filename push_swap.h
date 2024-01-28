@@ -84,7 +84,7 @@ int chunk_num(t_stack_node *stack);
 t_stack_node *find_max_node(t_stack_node *stack);
 t_stack_node *find_min_node(t_stack_node *stack);
 int dir_rotate(t_stack_node *stack, t_stack_node *target_node);
-void on_top(t_stack_node **stack, t_stack_node *target);
+void on_top_a(t_stack_node **stack, t_stack_node *target);
 void on_top_b(t_stack_node **stack, t_stack_node *target);
 
 #endif

@@ -1,14 +1,5 @@
 #include "push_swap.h"
 
-//  static void print_stack(t_stack_node *stack)
-//  {
-//      while (stack != NULL) {
-//          printf("num -- %d, index -- %d\n", stack->num, stack->index);
-//          stack = stack->next;
-//      }
-//      //printf("\n");
-//  }
-
 int chunk_num(t_stack_node *stack)
 {
     int len = list_len(stack);
@@ -26,9 +17,8 @@ int chunk_num(t_stack_node *stack)
 }
 
 
-
 //moves node on top of the stack, ra or rra
-void on_top(t_stack_node **stack, t_stack_node *target)
+void on_top_a(t_stack_node **stack, t_stack_node *target)
 {
     t_stack_node *current = *stack;
     while (current)
