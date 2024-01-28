@@ -38,12 +38,12 @@ int ft_isnum(char *str)
 //convert str to int, if it is not int return 0;
 int ft_atoi(char *str)
 {
-   if (!ft_isnum(str)) 
-    return (0);
-   int sign = 1;
-   long res = 0;
-   while(*str)
-   {
+    if (!ft_isnum(str)) 
+        return (0);
+    int sign = 1;
+    long res = 0;
+    while(*str)
+    {
         if (*str == '-')
         {
             sign = -1;
@@ -51,11 +51,11 @@ int ft_atoi(char *str)
         }
         res = res * 10 + (*str - '0');
         str++;
-   }
-   res = res * sign;
-    if (res < LONG_MIN || res > LONG_MAX) 
+    }
+    res = res * sign;
+    if (res < INT_MIN || res > INT_MAX) 
         return (0);
-   return ((int)res);
+   return (res);
 }
 
 // function to check if 2 strings are equal

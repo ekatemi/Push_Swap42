@@ -4,12 +4,12 @@ void	sort_three(t_stack_node **a)
 {
 	t_stack_node	*biggest_node;
 
-	biggest_node = find_max(*a);
+	biggest_node = find_max_node(*a);
 	if (biggest_node == *a)
 		ra(a);
 	else if ((*a)->next == biggest_node)
 		rra(a);
-	if ((*a)->num > (*a)->next->num) //Check if the bottom node is the biggest, but the top node is higher than the second node
+	if ((*a)->index > (*a)->next->index) //Check if the bottom node is the biggest, but the top node is higher than the second node
 	{
         sa(a);
     }
@@ -26,16 +26,16 @@ void sort_4(t_stack_node **a, t_stack_node **b)
 //func returns closest bigger num to position correctly nodes
 static t_stack_node *find_closest_bigger(t_stack_node *a, int target) {
     t_stack_node *closest = NULL;
-    t_stack_node *min_node = find_min(a);
+    t_stack_node *min_node = find_min_node(a);
 
     // Traverse stack `a`
     while (a != NULL) 
     {
         // Check if the current element is bigger than the target
-        if (a->num > target) 
+        if (a->index > target) 
         {
             // If `closest` is NULL or the current element is closer, update `closest`
-            if (closest == NULL || a->num < closest->num) 
+            if (closest == NULL || a->index < closest->index) 
             {
                 closest = a;
             }
@@ -69,7 +69,7 @@ void sort_5(t_stack_node **a, t_stack_node **b)
     while (*b) 
     {
         // Find the correct position to push the number back to stack A
-        t_stack_node *target = find_closest_bigger(*a, (*b)->num);
+        t_stack_node *target = find_closest_bigger(*a, (*b)->index);
         
         // Rotate stack A to position the target at the top
         on_top_a(a, target);

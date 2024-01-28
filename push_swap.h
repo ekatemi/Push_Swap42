@@ -47,8 +47,8 @@ void append_node(t_stack_node **head,  int n);
 void init_stack_a(t_stack_node **head, char **argv);
 int stack_sorted(t_stack_node *head);
 void    init_new_node(t_stack_node *new_node, int n);
-t_stack_node *find_min(t_stack_node *stack);
-t_stack_node *find_max(t_stack_node *stack);
+// t_stack_node *find_min(t_stack_node *stack);
+// t_stack_node *find_max(t_stack_node *stack);
 
 
 
