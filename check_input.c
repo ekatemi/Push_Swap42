@@ -49,6 +49,8 @@ int ft_atoi(char *str)
             sign = -1;
             str++;
         }
+        if (*str == '0' && *(str + 1) != '\0')
+            str++;
         res = res * 10 + (*str - '0');
         str++;
     }
@@ -57,6 +59,7 @@ int ft_atoi(char *str)
         return (0);
    return (res);
 }
+
 
 // function to check if 2 strings are equal
 int ft_strcmp(char *str1, char *str2)
@@ -71,6 +74,8 @@ int ft_strcmp(char *str1, char *str2)
     return(0);
 }
 
+
+
 //function to check if input args are not duplicated (1 dup, 0 not)
 int ft_checkdup(char  **argv, int current)
 {
@@ -79,7 +84,7 @@ int ft_checkdup(char  **argv, int current)
     i = 1;
     while (i < current)
     {
-        if (ft_strcmp(argv[i], argv[current]) == 0)
+        if (ft_atoi(argv[i]) == ft_atoi(argv[current]))
                 return(1);
         i++;    
     }
