@@ -53,8 +53,8 @@ int ft_atoi(char *str)
         str++;
    }
    res = res * sign;
-   if (res < -2147483648 || res > 2147483647) 
-    return (0);
+    if (res < LONG_MIN || res > LONG_MAX) 
+        return (0);
    return ((int)res);
 }
 
