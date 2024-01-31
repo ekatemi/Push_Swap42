@@ -12,16 +12,6 @@
 
 #include "push_swap.h"
 
-//helper to visualize stack only for me
-//  static void print_stack(t_stack_node *stack)
-//  {
-//      while (stack != NULL) {
-//          printf("num -- %d, index -- %d\n", stack->num, stack->index);
-//          stack = stack->next;
-//      }
-//      //printf("\n");
-//  }
-
 int main(int  argc, char  **argv)
 {
     
@@ -37,9 +27,6 @@ int main(int  argc, char  **argv)
     
     if (argc >= 2)
     {
-
-  
-        //to check if the arguments are int
         while (i < argc) 
         {
             if ((!ft_atoi(argv[i]) && ft_strcmp(argv[i],"0")) || ft_checkdup(argv, i))
@@ -51,12 +38,6 @@ int main(int  argc, char  **argv)
         }
         init_stack_a(&a, argv);
         set_list_index(a);
-    /*
-    printf("Stack input------>\n");
-    print_stack(a);
-    set_list_index(a);
-    print_stack(a);
-    printf("Commands------>\n");*/
         if (!stack_sorted(a))
         {
             if (list_len(a) == 2)
@@ -75,17 +56,12 @@ int main(int  argc, char  **argv)
                 sort_5(&a, &b);
             else
             {
-                chunk = chunk_num(a);
-            //printf("chunk size %d\n", chunk);
-                move_a_to_b(&a, &b, chunk);
-                move_b_to_a(&a, &b);
+                push_swap(&a, &b);
+                // chunk = chunk_num(a);
+                // move_a_to_b(&a, &b, chunk);
+                // move_b_to_a(&a, &b);
             }
         }     
-    //here code doesnt go because of return statement above
-    // printf("A after------>\n");
-    // print_stack(a);
-    // printf("B after------>\n");
-    // print_stack(b);
     lst_dealloc(&a);
 } 
     // printf("deallocation check------>\n");

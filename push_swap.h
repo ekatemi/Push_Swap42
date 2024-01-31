@@ -73,6 +73,7 @@ void	pb(t_stack_node **b, t_stack_node **a);
 void	sort_three(t_stack_node **a);
 void sort_4(t_stack_node **a, t_stack_node **b);
 void sort_5(t_stack_node **a, t_stack_node **b);
+void push_swap(t_stack_node **a, t_stack_node **b);
 //UTILS SORT
 int dir_rotate(t_stack_node *stack, t_stack_node *target_node);
 void set_list_index(t_stack_node *stack);

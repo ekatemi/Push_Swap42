@@ -27,12 +27,11 @@ CFLAGS = -Wall -Wextra -Werror
 %.o: %.c	$(INCLUDES) Makefile
 	$(COMPILER) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
 
-
-
 # Mis metodos
 all: 	$(NAME)
 
-$(OBJECTS): $(SOURCES) $(INCLUDES) Makefile
+# Link object files to create the executable
+#$(OBJECTS): $(SOURCES) $(INCLUDES) Makefile
 
 $(NAME): $(OBJECTS)
 	$(COMPILER) -o $(NAME) $(OBJECTS) $(CFLAGS)

@@ -97,3 +97,10 @@ void move_b_to_a(t_stack_node **a, t_stack_node **b)
         to_move--;
     }
 }
+
+void push_swap(t_stack_node **a, t_stack_node **b)
+{
+    int chunk = chunk_num(*a);
+    move_a_to_b(a, b, chunk);
+    move_b_to_a(a, b);
+}
