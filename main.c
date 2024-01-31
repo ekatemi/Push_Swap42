@@ -56,10 +56,11 @@ int main(int  argc, char  **argv)
                 sort_5(&a, &b);
             else
             {
-                push_swap(&a, &b);
-                // chunk = chunk_num(a);
+                //push_swap(&a, &b);
+                chunk = chunk_num(a);
                 // move_a_to_b(&a, &b, chunk);
                 // move_b_to_a(&a, &b);
+                push_swap(&a, &b, chunk);
             }
         }     
     lst_dealloc(&a);
