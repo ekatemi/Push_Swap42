@@ -10,7 +10,7 @@ int chunk_num(t_stack_node *stack)
     else if (len > 20 && len <= 100)
         res = 5;
     else if (len > 100 && len <= 500)
-        res = 11;
+        res = 10;
     else
         res = 21;
     return res;
